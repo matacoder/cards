@@ -128,6 +128,7 @@ async function startSmoke() {
       return setTimeout(async () => {
         const text = (id) => document.getElementById(id).textContent;
         report.dom = { word: text('word'), translation: text('translation'), className: document.getElementById('card').className, version: text('version') };
+        report.voices = speechSynthesis.getVoices().map((v) => v.lang);
         const { dict, prog, s } = await openDeck(current);
         report.stats = deck.stats(dict, prog, s.level);
       }, 4500);

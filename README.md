@@ -58,6 +58,7 @@ Smoke test of a built app: `CARDS_SMOKE=<dir> <app binary>` shows two cards usin
 ## How it works
 
 - Card: word + "listen" button (system speech synthesis) on top, translation below, "learned" tick with the app version on the right. Default timing is 3 s for the word, then 3 s with the translation, then 60 s until the next card. Hovering keeps the card on screen.
+- Spanish verbs start as the infinitive, then each show takes the next conjugated form with its translation; the tick marks the whole verb. Spanish nouns always carry an article, and speech reads it too.
 - The active set holds 6 words by default and cycles through them. A learned word leaves the set and the next unlearned word by frequency replaces it.
 - Levels are cumulative by frequency rank (see above). Progress is stored per studied language, so switching levels never repeats learned words.
 - Position: macOS top-right under the menu bar; Windows bottom-right, always clear of the taskbar even when it auto-hides.

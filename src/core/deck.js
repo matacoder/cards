@@ -36,7 +36,17 @@ function nextCard(dict, prog, nativeLang) {
   prog.cursor = (prog.cursor + 1) % prog.active.length;
   const entry = dict.find((e) => e.lemma === lemma);
   if (!entry) return null;
-  return { lemma, word: entry.word, translation: entry.tr[nativeLang] || '', rank: entry.rank };
+  const shown = verbForm(entry, prog);
+  return { lemma, word: shown.word, translation: shown.tr[nativeLang] || entry.tr[nativeLang] || '', rank: entry.rank };
+}
+
+// A verb starts as the infinitive, then every show takes its next conjugated form.
+function verbForm(entry, prog) {
+  if (!entry.forms) return entry;
+  if (!prog.shows) prog.shows = {};
+  const shows = prog.shows[entry.lemma] || 0;
+  prog.shows[entry.lemma] = shows + 1;
+  return shows === 0 ? entry : entry.forms[(shows - 1) % entry.forms.length];
 }
 
 function markLearned(prog, lemma, now = Date.now()) {

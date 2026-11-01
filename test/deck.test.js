@@ -44,3 +44,16 @@ test('unlearn makes a word available again', () => {
   deck.refill(dict, p, 1, 1);
   assert.deepStrictEqual(p.active, ['w1']);
 });
+
+test('a verb goes from the infinitive through its forms, and is learned as a whole', () => {
+  const forms = [{ word: 'hablo', tr: { ru: 'я говорю' } }, { word: 'hablé', tr: { ru: 'я поговорил' } }];
+  const verbs = [{ rank: 1, lemma: 'hablar', word: 'hablar', pos: 'verb', tr: { ru: 'говорить' }, forms }];
+  const p = deck.emptyProgress();
+  deck.refill(verbs, p, 1, 6);
+  const seen = [1, 2, 3, 4].map(() => deck.nextCard(verbs, p, 'ru'));
+  assert.deepStrictEqual(seen.map((c) => c.word), ['hablar', 'hablo', 'hablé', 'hablo']);
+  assert.strictEqual(seen[1].translation, 'я говорю');
+  assert.ok(seen.every((c) => c.lemma === 'hablar'));
+  deck.markLearned(p, seen[1].lemma);
+  assert.strictEqual(deck.nextCard(verbs, p, 'ru'), null);
+});

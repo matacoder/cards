@@ -9,34 +9,41 @@ let startedAt = 0;
 let timer = null;
 let hovered = false;
 
+// The language alone picks the system's default voice for it. Choosing from the list instead
+// can land on a macOS novelty voice ("Bells" is en-US too).
 function speak() {
   if (!current || current.done) return;
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(current.lemma);
+  const u = new SpeechSynthesisUtterance(current.word);
   u.lang = current.speechLang;
-  const voice = speechSynthesis.getVoices().find((v) => v.lang.replace('_', '-').startsWith(current.speechLang.slice(0, 2)));
-  if (voice) u.voice = voice;
   speechSynthesis.speak(u);
+}
+
+// Without a voice for the language the system would read the word with a wrong accent, or stay
+// silent. An empty list says nothing: voices may not have loaded yet.
+function updateSpeak() {
+  const button = el('speak');
+  const voices = speechSynthesis.getVoices();
+  const code = current && current.speechLang ? current.speechLang.slice(0, 2) : '';
+  const missing = code && voices.length > 0 && !voices.some((v) => v.lang.toLowerCase().startsWith(code));
+  button.disabled = !!missing;
+  button.title = missing ? 'В системе нет голоса для этого языка' : 'Прослушать';
 }
 
 function setProgress(ms, total) {
   const bar = el('progress');
-  const done = total ? 1 - ms / total : 1;
   bar.style.transition = 'none';
-  bar.style.width = `${done * 100}%`;
-  if (!hovered && ms > 0) {
-    requestAnimationFrame(() => {
-      bar.style.transition = `width ${ms}ms linear`;
-      bar.style.width = '100%';
-    });
-  }
+  bar.style.width = `${(total ? 1 - ms / total : 1) * 100}%`;
+  if (hovered || ms <= 0) return;
+  void bar.offsetWidth; // Apply the start position, or the second run has nothing to animate.
+  bar.style.transition = `width ${ms}ms linear`;
+  bar.style.width = '100%';
 }
 
 function runPhase(name, ms) {
   phase = name;
   remaining = ms;
   current.phaseTotal = ms;
-  setProgress(ms, ms);
   resume();
 }
 
@@ -68,7 +75,7 @@ function close(delay = 0) {
   clearTimeout(timer);
   setTimeout(() => {
     cardEl.classList.remove('visible');
-    setTimeout(() => window.cards.done(), 260);
+    setTimeout(() => window.cards.done(), 150);
   }, delay);
 }
 
@@ -79,6 +86,7 @@ function show(card) {
   el('translation').textContent = card.translation;
   cardEl.className = 'card' + (card.done ? ' finished' : '');
   el('speak').hidden = !!card.done;
+  updateSpeak();
   requestAnimationFrame(() => cardEl.classList.add('visible'));
   if (card.wordSec > 0) runPhase('word', card.wordSec * 1000);
   else {
@@ -88,6 +96,7 @@ function show(card) {
 }
 
 el('speak').addEventListener('click', speak);
+speechSynthesis.addEventListener('voiceschanged', updateSpeak);
 el('learned').addEventListener('click', () => {
   if (!current || phase === 'closing') return;
   cardEl.classList.add('revealed', 'done');

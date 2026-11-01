@@ -40,10 +40,9 @@ html, body {
   backdrop-filter: blur(20px);
   overflow: hidden;
   opacity: 0;
-  transform: translateX(16px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.15s ease;
 }
-.card.visible { opacity: 1; transform: none; }
+.card.visible { opacity: 1; }
 .top, .bottom { display: flex; align-items: center; padding: 0 16px; min-width: 0; }
 .top { gap: 8px; border-bottom: 1px solid var(--line); }
 .word { font-size: 24px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -54,7 +53,7 @@ html, body {
   overflow: hidden;
   text-overflow: ellipsis;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.15s ease;
 }
 .card.revealed .translation { opacity: 1; }
 button {
@@ -66,7 +65,8 @@ button {
   place-items: center;
 }
 .speak { color: var(--muted); padding: 6px; border-radius: 8px; flex: none; }
-.speak:hover { background: var(--line); color: var(--fg); }
+.speak:hover:enabled { background: var(--line); color: var(--fg); }
+.speak:disabled { opacity: 0.35; cursor: default; }
 .learned {
   grid-column: 2;
   grid-row: 1 / span 2;
