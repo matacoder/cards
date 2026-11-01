@@ -1,0 +1,6 @@
+# Russian frequency source
+
+- Source: Lyashevskaya & Sharov, "Новый частотный словарь русской лексики" / Частотный словарь современного русского языка (2009), based on the Russian National Corpus (modern subcorpus + oral corpus, 1950-2007, 92M tokens). File freqrnc2011.csv from http://dict.ruslang.ru/Freq2011.zip (page: http://dict.ruslang.ru/freq.php).
+- Terms as stated in the bundled readme: (c) O. N. Lyashevskaya, S. A. Sharov 2009-2011; (c) Russian National Corpus 2009-2011; users are asked to cite the original: О. Н. Ляшевская, С. А. Шаров, Частотный словарь современного русского языка (на материалах Национального корпуса русского языка). М.: Азбуковник, 2009. No explicit open license is given; check before commercial redistribution.
+- Method: scripts/ru/build_list.py keeps rows with purely lowercase Cyrillic lemmas (drops proper names `s.PROP`, abbreviations, hyphenated/multiword entries), sums ipm per lemma across POS rows, assigns the POS with the highest ipm (mapped to the app's tag set), sorts by ipm, takes the top 3000.
+- Translations (es/en) were written by LLM sub-agents in 6 chunks of 500 (work/chunk_N.json -> work/tr_N.json) and merged and validated by scripts/ru/merge.py.

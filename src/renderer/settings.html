@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'">
+  <title>Cards</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1 id="title">Cards</h1>
+      <p id="subtitle" class="muted"></p>
+    </header>
+
+    <section class="panel">
+      <div class="row">
+        <label>Изучаю
+          <select id="learnLang"></select>
+        </label>
+        <label>Перевод на
+          <select id="nativeLang"></select>
+        </label>
+      </div>
+      <div class="levels" id="levels"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Карточки</h2>
+      <div class="grid">
+        <label>Слов в наборе <input type="number" id="setSize" min="1" max="30"></label>
+        <label>Слово, сек <input type="number" id="wordSec" min="1" max="30"></label>
+        <label>Перевод, сек <input type="number" id="translationSec" min="1" max="30"></label>
+        <label>Пауза между карточками, сек <input type="number" id="intervalSec" min="5" max="3600"></label>
+      </div>
+      <button class="primary" id="save">Сохранить</button>
+      <span class="muted" id="saved"></span>
+    </section>
+
+    <section class="panel" id="wordsPanel">
+      <div class="stats" id="stats"></div>
+      <nav class="tabs">
+        <button data-tab="active" class="on">Изучаю</button>
+        <button data-tab="learned">Выучено</button>
+        <button data-tab="ahead">Впереди</button>
+      </nav>
+      <ul class="words" id="words"></ul>
+    </section>
+  </main>
+  <script src="settings.js"></script>
+</body>
+</html>

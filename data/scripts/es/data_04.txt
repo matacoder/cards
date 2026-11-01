@@ -1,0 +1,582 @@
+ordenador|el ordenador|noun|компьютер|computer
+incidente|el incidente|noun|инцидент, происшествие|incident
+escribí escribiendo|escribir|verb|писать|to write
+estuvieron estuvieras|estar|verb|быть, находиться|to be
+intentaré intentaba intentamos intente|intentar|verb|пытаться|to try
+pensamiento|el pensamiento|noun|мысль, мышление|thought
+metió mete|meter|verb|класть, засовывать|to put in
+maleta|la maleta|noun|чемодан|suitcase
+condado|el condado|noun|графство, округ|county
+piezas|la pieza|noun|деталь, часть|piece
+ladrones|el ladrón|noun|вор|thief
+metro|el metro|noun|метро, метр|subway, meter
+kilos|el kilo|noun|килограмм|kilo
+recuerde|recordar|verb|помнить, напоминать|to remember
+español|español|adj|испанский|Spanish
+motivos|el motivo|noun|причина, мотив|reason
+explica|explicar|verb|объяснять|to explain
+renunciar|renunciar|verb|отказываться, уходить в отставку|to give up, to resign
+actuación|la actuación|noun|выступление, игра|performance
+refugio|el refugio|noun|убежище|shelter
+harto|harto|adj|сытый, сыт по горло|fed up
+reacción|la reacción|noun|реакция|reaction
+paliza|la paliza|noun|взбучка, избиение|beating
+chef|el chef|noun|шеф-повар|chef
+ocurra ocurrir|ocurrir|verb|происходить, случаться|to happen
+entrado entrando entren|entrar|verb|входить|to enter
+quitar|quitar|verb|убирать, снимать|to remove, to take off
+amanecer|amanecer|verb|рассветать|to dawn
+corazones|el corazón|noun|сердце|heart
+rumores|el rumor|noun|слух|rumor
+llames llamarte llamarlo llamaron|llamar|verb|звать, звонить|to call
+celoso|celoso|adj|ревнивый|jealous
+utilizar|utilizar|verb|использовать|to use
+olvide olvidó|olvidar|verb|забывать|to forget
+territorio|el territorio|noun|территория|territory
+prácticamente|prácticamente|adv|практически|practically
+disfrutar|disfrutar|verb|наслаждаться|to enjoy
+vecino vecindario|el vecino|noun|сосед|neighbor
+pública|público|adj|публичный, общественный|public
+collar|el collar|noun|ожерелье, ошейник|necklace, collar
+golf|el golf|noun|гольф|golf
+cercano|cercano|adj|близкий|close, near
+fondos|el fondo|noun|дно, фонд, глубина|bottom, fund
+montar|montar|verb|садиться верхом, собирать|to ride, to assemble
+salvado|salvar|verb|спасать|to save
+grados|el grado|noun|градус, степень|degree
+moto|la moto|noun|мотоцикл|motorcycle
+instrucciones|la instrucción|noun|инструкция|instruction
+treinta|treinta|num|тридцать|thirty
+adonde|adonde|adv|куда|where to
+hablarte hablaste|hablar|verb|говорить|to speak
+emperador|el emperador|noun|император|emperor
+cigarrillo cigarrillos|el cigarrillo|noun|сигарета|cigarette
+cuéntame contando conté|contar|verb|рассказывать, считать|to tell, to count
+secreta|secreto|adj|секретный|secret
+haberse habrías habrían hayamos haberla|haber|verb|иметь (вспомог.), быть|to have (aux.)
+mortal|mortal|adj|смертный, смертельный|mortal, deadly
+ronda|la ronda|noun|обход, раунд|round
+cuídate|cuidar|verb|заботиться, беречь|to take care of
+metal|el metal|noun|металл|metal
+puro|puro|adj|чистый|pure
+cierre|el cierre|noun|закрытие, застёжка|closing, zipper
+colores|el color|noun|цвет|color
+botón|el botón|noun|кнопка, пуговица|button
+hijas|la hija|noun|дочь|daughter
+tenerlo tuvieras tendríamos|tener|verb|иметь|to have
+tono|el tono|noun|тон|tone
+espía|el espía|noun|шпион|spy
+empleados empleado|el empleado|noun|сотрудник, служащий|employee
+conduce|conducir|verb|водить, вести|to drive
+detalle|el detalle|noun|деталь|detail
+rusos ruso|ruso|adj|русский|Russian
+déjala dejame dejará dejaría dejemos dejarla|dejar|verb|оставлять, позволять|to leave, to let
+crema|la crema|noun|крем|cream
+contesta contestar|contestar|verb|отвечать|to answer
+casarte|casarse|verb|жениться, выходить замуж|to get married
+manda mandar|mandar|verb|посылать, приказывать|to send, to order
+dias|el día|noun|день|day
+prisioneros prisionero|el prisionero|noun|заключённый, пленник|prisoner
+echado|echar|verb|бросать, выгонять|to throw, to kick out
+trajiste traiga traes|traer|verb|приносить|to bring
+flota|la flota|noun|флот|fleet
+criminales|el criminal|noun|преступник|criminal
+platos|el plato|noun|тарелка, блюдо|plate, dish
+crímenes|el crimen|noun|преступление|crime
+cometido|cometer|verb|совершать|to commit
+golpear|golpear|verb|ударять|to hit
+igualmente|igualmente|adv|так же, равно|equally
+dispararon disparado|disparar|verb|стрелять|to shoot
+tontos|tonto|adj|глупый|silly, foolish
+sabría supo sabiendo sabíamos sabrás sepan|saber|verb|знать, уметь|to know
+abran abrió|abrir|verb|открывать|to open
+ayudante|el ayudante|noun|помощник|assistant
+cultura|la cultura|noun|культура|culture
+revolución|la revolución|noun|революция|revolution
+hombro|el hombro|noun|плечо|shoulder
+botas|la bota|noun|сапог, ботинок|boot
+adoro|adorar|verb|обожать|to adore
+biblia|la biblia|noun|Библия|Bible
+saludos|el saludo|noun|приветствие|greeting
+deme|dar|verb|давать|to give
+adultos adulto|el adulto|noun|взрослый|adult
+sitios|el sitio|noun|место, сайт|place, site
+serpiente|la serpiente|noun|змея|snake
+romántico|romántico|adj|романтичный|romantic
+posiblemente|posiblemente|adv|возможно|possibly
+adivinar|adivinar|verb|угадывать|to guess
+peores|peor|adj|худший, хуже|worse
+buscan buscado buscaba buscarlo|buscar|verb|искать|to look for
+enfrente|enfrente|adv|напротив|opposite, in front
+restos|el resto|noun|остаток, остатки|rest, remains
+capacidad|la capacidad|noun|способность, вместимость|capacity
+aliento|el aliento|noun|дыхание|breath
+placa|la placa|noun|табличка, значок|plate, badge
+rata ratas|la rata|noun|крыса|rat
+entendí entienden|entender|verb|понимать|to understand
+metas|la meta|noun|цель|goal
+cuadro|el cuadro|noun|картина, квадрат|painting, square
+afortunado|afortunado|adj|счастливый, удачливый|lucky
+puestos|el puesto|noun|место, должность, киоск|position, stall
+división|la división|noun|деление, отдел|division
+subtítulos|el subtítulo|noun|субтитр|subtitle
+entradas|la entrada|noun|вход, билет|entrance, ticket
+bicicleta|la bicicleta|noun|велосипед|bicycle
+vuestras|vuestro|det|ваш|your (pl.)
+pesado|pesado|adj|тяжёлый, нудный|heavy, annoying
+sugiero|sugerir|verb|предлагать|to suggest
+calla|callar|verb|молчать|to be quiet
+espacial|espacial|adj|космический|space
+ventanas|la ventana|noun|окно|window
+mejorar|mejorar|verb|улучшать|to improve
+concurso|el concurso|noun|конкурс|contest
+comisaría|la comisaría|noun|полицейский участок|police station
+sincero sinceramente|sincero|adj|искренний|sincere
+centavos|el centavo|noun|цент|cent
+naturalmente|naturalmente|adv|естественно|naturally
+deseas|desear|verb|желать|to wish
+pasara pasen pasas pasaron pasaría|pasar|verb|проходить, передавать, происходить|to pass, to happen
+esperado esperaré|esperar|verb|ждать, надеяться|to wait, to hope
+pondrá pusiste ponerle puesta|poner|verb|класть, ставить|to put
+recursos|el recurso|noun|ресурс|resource
+raza|la raza|noun|раса, порода|race, breed
+muestras|la muestra|noun|образец, знак|sample, sign
+personales|personal|adj|личный|personal
+imaginación|la imaginación|noun|воображение|imagination
+volverás vuelven volviste volvería|volver|verb|возвращаться|to return
+ceremonia|la ceremonia|noun|церемония|ceremony
+almacén|el almacén|noun|склад, магазин|warehouse, store
+sabor|el sabor|noun|вкус|flavor
+sentarse sentada sentarme|sentar|verb|сажать, садиться|to sit, to seat
+unión|la unión|noun|союз, соединение|union
+reserva|la reserva|noun|резерв, бронь|reserve, reservation
+encanto|el encanto|noun|очарование|charm
+aviones|el avión|noun|самолёт|airplane
+calidad|la calidad|noun|качество|quality
+escondido|esconder|verb|прятать|to hide
+citas|la cita|noun|свидание, цитата|date, quote
+aceite|el aceite|noun|масло|oil
+querrá querrás|querer|verb|хотеть, любить|to want, to love
+punta|la punta|noun|кончик, остриё|tip, point
+cinturón|el cinturón|noun|ремень, пояс|belt
+podrán pudimos pudieron podria|poder|verb|мочь|can, to be able
+cuales|cual|pron|который, какой|which
+chiste|el chiste|noun|шутка, анекдот|joke
+consecuencias|la consecuencia|noun|последствие|consequence
+vaca|la vaca|noun|корова|cow
+investigando investigar|investigar|verb|расследовать, исследовать|to investigate
+apellido|el apellido|noun|фамилия|surname
+actual|actual|adj|нынешний, текущий|current
+despertar|despertar|verb|будить, просыпаться|to wake up
+instante|el instante|noun|мгновение|instant
+ud|usted|pron|вы (вежл.)|you (formal)
+morirá mueren|morir|verb|умирать|to die
+sacaste|sacar|verb|доставать, вытаскивать|to take out
+mueva|mover|verb|двигать|to move
+terminé|terminar|verb|заканчивать|to finish
+emociones emoción|la emoción|noun|эмоция, волнение|emotion
+dormitorio|el dormitorio|noun|спальня|bedroom
+pulso|el pulso|noun|пульс|pulse
+atreves|atreverse|verb|осмеливаться|to dare
+frase|la frase|noun|фраза|phrase
+partida|la partida|noun|партия, отъезд|game, departure
+parezco|parecer|verb|казаться, походить|to seem
+excelencia|la excelencia|noun|превосходство, превосходительство|excellence
+despedido|despedir|verb|увольнять, провожать|to fire, to see off
+moral|moral|adj|моральный|moral
+asalto|el asalto|noun|нападение, штурм|assault
+decente|decente|adj|порядочный, приличный|decent
+informes|el informe|noun|отчёт, доклад|report
+asusta|asustar|verb|пугать|to scare
+trabajan trabajamos|trabajar|verb|работать|to work
+poca|poco|det|мало, немного|little, few
+médica|el médico|noun|врач|doctor
+combustible|el combustible|noun|топливо|fuel
+discusión|la discusión|noun|спор, обсуждение|discussion, argument
+verán|ver|verb|видеть|to see
+ciertas|cierto|adj|определённый, верный|certain, true
+pata|la pata|noun|лапа, нога|paw, leg
+antiguos|antiguo|adj|древний, старый|ancient, old
+requiere|requerir|verb|требовать|to require
+cogido|coger|verb|брать, хватать|to take, to grab
+comunicación|la comunicación|noun|связь, общение|communication
+manzana|la manzana|noun|яблоко, квартал|apple, block
+sed|la sed|noun|жажда|thirst
+tio|el tío|noun|дядя, чувак|uncle, guy
+joyas|la joya|noun|драгоценность|jewel
+cojones|el cojón|noun|яйца (вульг.)|balls (vulgar)
+noble|noble|adj|благородный|noble
+pediste pedirte|pedir|verb|просить, заказывать|to ask for, to order
+encontrarla encontrará encontrarás|encontrar|verb|находить|to find
+piedras|la piedra|noun|камень|stone
+traidor|el traidor|noun|предатель|traitor
+gané gano ganamos|ganar|verb|выигрывать, зарабатывать|to win, to earn
+letra|la letra|noun|буква, текст песни|letter, lyrics
+conseguimos conseguiré|conseguir|verb|добиваться, получать|to get, to achieve
+vía|la vía|noun|путь, дорога|way, track
+sacerdote|el sacerdote|noun|священник|priest
+efectos|el efecto|noun|эффект|effect
+resistencia|la resistencia|noun|сопротивление, выносливость|resistance
+arroz|el arroz|noun|рис|rice
+arreglado arreglarlo|arreglar|verb|чинить, устраивать|to fix, to arrange
+tarjetas|la tarjeta|noun|карточка, открытка|card
+descubrió descubrí|descubrir|verb|открывать, обнаруживать|to discover
+desconocido|desconocido|adj|неизвестный|unknown
+mínimo|mínimo|adj|минимальный|minimum
+bandera|la bandera|noun|флаг|flag
+plaza|la plaza|noun|площадь, место|square, seat
+tomará tomaste tómalo|tomar|verb|брать, пить|to take, to drink
+visitas|la visita|noun|визит, гость|visit, visitor
+demasiada|demasiado|det|слишком много|too much
+faltan|faltar|verb|не хватать|to lack, to be missing
+planeado planeando|planear|verb|планировать|to plan
+imperio|el imperio|noun|империя|empire
+enfadada|enfadado|adj|сердитый|angry
+levantar|levantar|verb|поднимать|to lift, to raise
+cartera|la cartera|noun|бумажник, портфель|wallet, briefcase
+importar|importar|verb|быть важным, импортировать|to matter, to import
+depósito|el depósito|noun|депозит, резервуар|deposit, tank
+colegas|el colega|noun|коллега|colleague
+periodista|el periodista|noun|журналист|journalist
+comprobar|comprobar|verb|проверять|to check
+funcione funcionará|funcionar|verb|работать, функционировать|to work, to function
+mereces|merecer|verb|заслуживать|to deserve
+forense|forense|adj|судебный|forensic
+tensión|la tensión|noun|напряжение|tension
+involucrado|involucrar|verb|вовлекать|to involve
+vacía|vacío|adj|пустой|empty
+abandonado|abandonar|verb|покидать, бросать|to abandon
+vídeo|el vídeo|noun|видео|video
+círculo|el círculo|noun|круг|circle
+judío|judío|adj|еврейский|Jewish
+cole|el cole|noun|школа|school
+gritos|el grito|noun|крик|shout
+empecemos empiece empiezo|empezar|verb|начинать|to begin
+resultó|resultar|verb|оказываться|to turn out
+campos|el campo|noun|поле, деревня|field, countryside
+váyanse váyase|ir|verb|идти, ехать|to go
+divertida|divertido|adj|весёлый, забавный|fun, amusing
+pinta|la pinta|noun|внешний вид, пинта|look, pint
+ascensor|el ascensor|noun|лифт|elevator
+quedarnos quedes quédese|quedar|verb|оставаться, договариваться|to stay, to remain
+matará mataría maten matan|matar|verb|убивать|to kill
+aparecer|aparecer|verb|появляться|to appear
+helicóptero|el helicóptero|noun|вертолёт|helicopter
+actuando|actuar|verb|действовать, играть|to act
+apúrate|apurar|verb|торопить|to hurry
+entregar|entregar|verb|передавать, сдавать|to hand over
+escape|el escape|noun|побег, выхлоп|escape
+indios|el indio|noun|индеец, индиец|Indian
+limpieza|la limpieza|noun|уборка, чистота|cleaning
+hueso|el hueso|noun|кость|bone
+magnífico|magnífico|adj|великолепный|magnificent
+trabajadores|el trabajador|noun|работник|worker
+caída|la caída|noun|падение|fall
+temperatura|la temperatura|noun|температура|temperature
+habia|haber|verb|иметь (вспомог.), быть|to have (aux.)
+ejercicio|el ejercicio|noun|упражнение|exercise
+lealtad|la lealtad|noun|верность, лояльность|loyalty
+alas|el ala|noun|крыло|wing
+invitación|la invitación|noun|приглашение|invitation
+diamantes|el diamante|noun|бриллиант, алмаз|diamond
+unidades|la unidad|noun|единица, часть|unit
+enojada|enojado|adj|сердитый|angry
+decimos|decir|verb|говорить, сказать|to say
+leyenda|la leyenda|noun|легенда|legend
+gilipollas|el gilipollas|noun|придурок|jerk
+paraíso|el paraíso|noun|рай|paradise
+gatos|el gato|noun|кот, кошка|cat
+costumbre|la costumbre|noun|привычка, обычай|habit, custom
+cabaña|la cabaña|noun|хижина|cabin
+secretaria secretario|el secretario|noun|секретарь|secretary
+lentamente|lentamente|adv|медленно|slowly
+ensayo|el ensayo|noun|репетиция, эссе|rehearsal, essay
+pagó pagaré|pagar|verb|платить|to pay
+familiares|el familiar|noun|родственник|relative
+gimnasio|el gimnasio|noun|спортзал|gym
+negativo|negativo|adj|отрицательный|negative
+lenguaje|el lenguaje|noun|язык, речь|language
+pájaros|el pájaro|noun|птица|bird
+presenta|presentar|verb|представлять|to present, to introduce
+garaje|el garaje|noun|гараж|garage
+palo|el palo|noun|палка|stick
+león|el león|noun|лев|lion
+oídos|el oído|noun|слух, ухо|hearing, ear
+espaldas|la espalda|noun|спина|back
+apuestas|la apuesta|noun|ставка, пари|bet
+científico científicos|el científico|noun|учёный|scientist
+incluyendo|incluir|verb|включать|to include
+pelotas|la pelota|noun|мяч|ball
+actividad|la actividad|noun|деятельность|activity
+dragón|el dragón|noun|дракон|dragon
+necesite|necesitar|verb|нуждаться, требоваться|to need
+aguantar|aguantar|verb|терпеть, выдерживать|to endure
+primeras|primero|adj|первый|first
+generación|la generación|noun|поколение|generation
+sexuales|sexual|adj|сексуальный|sexual
+apetece|apetecer|verb|хотеться|to feel like
+grupos|el grupo|noun|группа|group
+capital|la capital|noun|столица, капитал|capital
+barato|barato|adj|дешёвый|cheap
+máquinas|la máquina|noun|машина, аппарат|machine
+sistemas|el sistema|noun|система|system
+fingir|fingir|verb|притворяться|to pretend
+pensarlo|pensar|verb|думать|to think
+miércoles|el miércoles|noun|среда|Wednesday
+escritor|el escritor|noun|писатель|writer
+solitario|solitario|adj|одинокий|lonely
+recibo recibe|recibir|verb|получать|to receive
+conocerlo conoció|conocer|verb|знать, знакомиться|to know, to meet
+convertirse|convertir|verb|превращать|to turn into
+almas|el alma|noun|душа|soul
+salto|el salto|noun|прыжок|jump
+sonar|sonar|verb|звучать|to sound
+publicidad|la publicidad|noun|реклама|advertising
+temporal|temporal|adj|временный|temporary
+antecedentes|el antecedente|noun|прошлое, судимость|background, record
+probado|probar|verb|пробовать, доказывать|to try, to prove
+atractivo|atractivo|adj|привлекательный|attractive
+barra|la barra|noun|барная стойка, брусок|bar, rod
+aniversario|el aniversario|noun|годовщина|anniversary
+intereses|el interés|noun|интерес, процент|interest
+madres|la madre|noun|мать|mother
+deba|deber|verb|быть должным|to owe, must
+imagina|imaginar|verb|воображать|to imagine
+niñera|la niñera|noun|няня|nanny
+movimientos|el movimiento|noun|движение|movement
+quince|quince|num|пятнадцать|fifteen
+muro|el muro|noun|стена|wall
+luce|lucir|verb|выглядеть, блистать|to look, to show off
+nací|nacer|verb|рождаться|to be born
+prima|la prima|noun|двоюродная сестра|cousin
+cubierto|cubrir|verb|покрывать|to cover
+reír ríe|reír|verb|смеяться|to laugh
+producto|el producto|noun|продукт|product
+daños|el daño|noun|вред, ущерб|damage
+abrazo|el abrazo|noun|объятие|hug
+gafas|las gafas|noun|очки|glasses
+sobrino|el sobrino|noun|племянник|nephew
+demanda|la demanda|noun|иск, спрос|lawsuit, demand
+elecciones|la elección|noun|выбор, выборы|choice, election
+construcción|la construcción|noun|строительство|construction
+ayudaré ayudado|ayudar|verb|помогать|to help
+criaturas|la criatura|noun|существо|creature
+internacional|internacional|adj|международный|international
+perfil|el perfil|noun|профиль|profile
+trozo|el trozo|noun|кусок|piece
+actriz|la actriz|noun|актриса|actress
+repito|repetir|verb|повторять|to repeat
+bendiga|bendecir|verb|благословлять|to bless
+pistas|la pista|noun|подсказка, след, трасса|clue, track
+ataques|el ataque|noun|атака, приступ|attack
+razonable|razonable|adj|разумный|reasonable
+vende vendido|vender|verb|продавать|to sell
+gerente|el gerente|noun|управляющий|manager
+sensible|sensible|adj|чувствительный|sensitive
+izquierdo|izquierdo|adj|левый|left
+personalidad|la personalidad|noun|личность, характер|personality
+camina|caminar|verb|ходить, идти|to walk
+preparando|preparar|verb|готовить|to prepare
+rueda|la rueda|noun|колесо|wheel
+sorprendido|sorprender|verb|удивлять|to surprise
+profundamente|profundamente|adv|глубоко|deeply
+grano|el grano|noun|зерно, прыщ|grain, pimple
+límites|el límite|noun|предел, граница|limit
+moneda|la moneda|noun|монета, валюта|coin, currency
+super|súper|adj|классный, супер|super, great
+piedad|la piedad|noun|жалость, милосердие|mercy, pity
+militares|el militar|noun|военный|soldier
+seguía|seguir|verb|следовать, продолжать|to follow, to continue
+tocado tocando|tocar|verb|трогать, играть|to touch, to play
+ciudadanos|el ciudadano|noun|гражданин|citizen
+creado|crear|verb|создавать|to create
+temas|el tema|noun|тема|topic
+acepta|aceptar|verb|принимать, соглашаться|to accept
+encerrado|encerrar|verb|запирать|to lock up
+opinas|opinar|verb|считать, иметь мнение|to think, to opine
+borde|el borde|noun|край|edge
+llevarla llevé llévame|llevar|verb|нести, носить, везти|to carry, to take
+barcos|el barco|noun|корабль, лодка|ship, boat
+profesora|el profesor|noun|преподаватель, учитель|teacher
+expresión|la expresión|noun|выражение|expression
+asesinada|asesinar|verb|убивать|to murder
+escándalo|el escándalo|noun|скандал|scandal
+nervios|el nervio|noun|нерв|nerve
+perdedor|el perdedor|noun|неудачник|loser
+oficialmente|oficialmente|adv|официально|officially
+sienten sentirse|sentir|verb|чувствовать, сожалеть|to feel, to regret
+rumbo|el rumbo|noun|курс, направление|course, direction
+valle|el valle|noun|долина|valley
+viejas|viejo|adj|старый|old
+gorda|gordo|adj|толстый|fat
+juventud|la juventud|noun|молодость|youth
+preocupación|la preocupación|noun|беспокойство|worry
+desnudo desnuda|desnudo|adj|голый|naked
+guión|el guion|noun|сценарий|script
+envié|enviar|verb|отправлять|to send
+señoritas|la señorita|noun|барышня, мисс|young lady, miss
+carreras|la carrera|noun|карьера, гонка, специальность|career, race
+tratas trate|tratar|verb|обращаться, пытаться|to treat, to try
+sucia|sucio|adj|грязный|dirty
+mayo|el mayo|noun|май|May
+tirado|tirar|verb|бросать, тянуть|to throw, to pull
+heroína|la heroína|noun|героиня, героин|heroine, heroin
+háblame|hablar|verb|говорить|to speak
+caos|el caos|noun|хаос|chaos
+alternativa|la alternativa|noun|альтернатива|alternative
+estupidez|la estupidez|noun|глупость|stupidity
+sorprendente|sorprendente|adj|удивительный|surprising
+principios|el principio|noun|начало, принцип|beginning, principle
+egoísta|egoísta|adj|эгоистичный|selfish
+mostraré|mostrar|verb|показывать|to show
+verdaderamente|verdaderamente|adv|поистине, действительно|truly
+enhorabuena|enhorabuena|interj|поздравляю|congratulations
+peligrosa|peligroso|adj|опасный|dangerous
+ánimo|el ánimo|noun|настроение, бодрость|mood, spirit
+viajes|el viaje|noun|поездка, путешествие|trip
+lujo|el lujo|noun|роскошь|luxury
+cantando|cantar|verb|петь|to sing
+religión|la religión|noun|религия|religion
+risas risa|la risa|noun|смех|laughter
+despejado|despejar|verb|расчищать, проясняться|to clear
+miserable|miserable|adj|жалкий, несчастный|miserable
+hierro|el hierro|noun|железо|iron
+corona|la corona|noun|корона|crown
+serías serían|ser|verb|быть|to be
+dispositivo|el dispositivo|noun|устройство|device
+mencionar mencionó|mencionar|verb|упоминать|to mention
+inmunidad|la inmunidad|noun|иммунитет|immunity
+grabación|la grabación|noun|запись|recording
+producción|la producción|noun|производство|production
+nuclear|nuclear|adj|ядерный|nuclear
+clima|el clima|noun|климат|climate
+carácter|el carácter|noun|характер|character
+prostituta putas|la prostituta|noun|проститутка|prostitute
+máscara|la máscara|noun|маска|mask
+alegre|alegre|adj|весёлый|cheerful
+comprender|comprender|verb|понимать|to understand
+cambiando|cambiar|verb|менять|to change
+alianza|la alianza|noun|союз, обручальное кольцо|alliance, ring
+positivo|positivo|adj|положительный|positive
+siglos|el siglo|noun|век|century
+desafortunadamente|desafortunadamente|adv|к сожалению|unfortunately
+guitarra|la guitarra|noun|гитара|guitar
+hacían|hacer|verb|делать|to do, to make
+estrategia|la estrategia|noun|стратегия|strategy
+entré|entrar|verb|входить|to enter
+vinimos viniera vendrán|venir|verb|приходить|to come
+frecuencia|la frecuencia|noun|частота|frequency
+poli|el poli|noun|полицейский, коп|cop
+discúlpame disculparme|disculpar|verb|извинять|to excuse
+prohibido|prohibir|verb|запрещать|to forbid
+caray|caray|interj|чёрт возьми|damn
+arruinar|arruinar|verb|разрушать, портить|to ruin
+masa|la masa|noun|масса, тесто|mass, dough
+existencia|la existencia|noun|существование|existence
+túnel|el túnel|noun|туннель|tunnel
+bromas|la broma|noun|шутка|joke
+evitarlo|evitar|verb|избегать|to avoid
+industria|la industria|noun|промышленность|industry
+trasera|trasero|adj|задний|rear
+monstruos|el monstruo|noun|чудовище|monster
+inocentes|inocente|adj|невиновный|innocent
+colección|la colección|noun|коллекция|collection
+fatal|fatal|adj|ужасный, роковой|awful, fatal
+expediente|el expediente|noun|досье, дело|file, record
+petición|la petición|noun|просьба|request
+presentación|la presentación|noun|презентация|presentation
+cerebral|cerebral|adj|мозговой|cerebral
+coraje|el coraje|noun|мужество, злость|courage, anger
+rubia|rubio|adj|светловолосый|blond
+pierdes|perder|verb|терять, проигрывать|to lose
+almorzar|almorzar|verb|обедать|to have lunch
+caridad|la caridad|noun|милосердие, благотворительность|charity
+llegada|la llegada|noun|прибытие|arrival
+capítulo|el capítulo|noun|глава, серия|chapter, episode
+gastos|el gasto|noun|расход|expense
+tarta|la tarta|noun|торт, пирог|cake, pie
+jersey|el jersey|noun|свитер|sweater
+breve|breve|adj|краткий|brief
+obras|la obra|noun|произведение, стройка|work, construction
+acero|el acero|noun|сталь|steel
+suceda|suceder|verb|происходить|to happen
+camarada|el camarada|noun|товарищ|comrade
+confesión|la confesión|noun|признание, исповедь|confession
+dijimos|decir|verb|говорить, сказать|to say
+coartada|la coartada|noun|алиби|alibi
+payaso|el payaso|noun|клоун|clown
+rayo|el rayo|noun|луч, молния|ray, lightning
+guay|guay|adj|классный|cool
+naves|la nave|noun|корабль|ship
+americana|americano|adj|американский|American
+político|político|adj|политический|political
+diseño|el diseño|noun|дизайн|design
+condenado|condenar|verb|осуждать|to condemn
+convencido|convencer|verb|убеждать|to convince
+policia|la policía|noun|полиция|police
+italiano|italiano|adj|итальянский|Italian
+camiseta|la camiseta|noun|футболка|T-shirt
+extrañas|extraño|adj|странный|strange
+impacto|el impacto|noun|удар, влияние|impact
+equipaje|el equipaje|noun|багаж|luggage
+sufrimiento|el sufrimiento|noun|страдание|suffering
+salieron|salir|verb|выходить, уходить|to go out, to leave
+mantente mantenga|mantener|verb|поддерживать, сохранять|to keep, to maintain
+adolescente|el adolescente|noun|подросток|teenager
+soltero|soltero|adj|холостой|single
+tranquilos|tranquilo|adj|спокойный|calm
+influencia|la influencia|noun|влияние|influence
+oxígeno|el oxígeno|noun|кислород|oxygen
+experimento|el experimento|noun|эксперимент|experiment
+absurdo|absurdo|adj|абсурдный|absurd
+algun|alguno|det|какой-нибудь, некоторый|some, any
+devolver|devolver|verb|возвращать|to return, to give back
+propuesta|la propuesta|noun|предложение|proposal
+plantas|la planta|noun|растение, этаж|plant, floor
+cantante|el cantante|noun|певец|singer
+traición|la traición|noun|предательство|betrayal
+cementerio|el cementerio|noun|кладбище|cemetery
+pozo|el pozo|noun|колодец, яма|well, pit
+patrulla|la patrulla|noun|патруль|patrol
+tragedia|la tragedia|noun|трагедия|tragedy
+autoridades|la autoridad|noun|власть, власти|authority
+procedimiento|el procedimiento|noun|процедура|procedure
+fantasía|la fantasía|noun|фантазия|fantasy
+billetes billete|el billete|noun|билет, банкнота|ticket, bill
+secuestro|el secuestro|noun|похищение|kidnapping
+prestado|prestar|verb|одалживать|to lend
+bodas|la boda|noun|свадьба|wedding
+béisbol|el béisbol|noun|бейсбол|baseball
+ciudades|la ciudad|noun|город|city
+conejo|el conejo|noun|кролик|rabbit
+pregúntale pregunte|preguntar|verb|спрашивать|to ask
+esperanzas|la esperanza|noun|надежда|hope
+díselo|decir|verb|говорить, сказать|to say
+significado|el significado|noun|значение|meaning
+cincuenta|cincuenta|num|пятьдесят|fifty
+jugadores|el jugador|noun|игрок|player
+web|la web|noun|веб, сайт|web
+apropiado|apropiado|adj|подходящий|appropriate
+robot|el robot|noun|робот|robot
+considerado|considerar|verb|считать, рассматривать|to consider
+alcanzar|alcanzar|verb|достигать, дотягиваться|to reach
+patatas|la patata|noun|картофель|potato
+continuación|la continuación|noun|продолжение|continuation
+tradición|la tradición|noun|традиция|tradition
+países|el país|noun|страна|country
+ocultar|ocultar|verb|скрывать|to hide
+electricidad|la electricidad|noun|электричество|electricity
+bebidas|la bebida|noun|напиток|drink
+siguió|seguir|verb|следовать, продолжать|to follow, to continue
+reto|el reto|noun|вызов|challenge
+aldea|la aldea|noun|деревня|village
+robaron|robar|verb|красть|to steal
+aguas|el agua|noun|вода|water
+caminos|el camino|noun|дорога, путь|road, path
+permitido|permitir|verb|позволять, разрешать|to allow
+alli|allí|adv|там|there
+cima|la cima|noun|вершина|summit
+cumplido|cumplir|verb|выполнять, исполнять|to fulfill, to turn (age)
+objetos|el objeto|noun|предмет|object
+decide|decidir|verb|решать|to decide
+once|once|num|одиннадцать|eleven

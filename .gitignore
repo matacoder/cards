@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+.DS_Store
+data/sources/*/work/
+data/sources/ru/x/
+data/sources/ru/raw/freq.html
