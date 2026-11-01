@@ -1,17 +1,17 @@
-Всплывающие карточки для изучения слов во время работы. Испанский, английский и русский в любом направлении, частотные словари на 850 / 1500 / 3000 слов.
+Pop-up flashcards that teach you words while you work. Spanish, English and Russian in any direction, with frequency dictionaries of 850 / 1500 / 3000 words.
 
-## Установка
+## Install
 
-**macOS** — `Cards-*-mac-arm64.dmg` для Apple Silicon (M1 и новее), `Cards-*-mac-x64.dmg` для Intel. Приложение не подписано сертификатом Apple, поэтому при первом запуске macOS его заблокирует. Откройте «Системные настройки → Конфиденциальность и безопасность» и нажмите «Всё равно открыть». Или выполните в Терминале:
+**macOS**: `Cards-*-mac-arm64.dmg` for Apple Silicon (M1 and later), `Cards-*-mac-x64.dmg` for Intel. The app isn't signed with an Apple certificate, so macOS blocks the first launch. Open System Settings → Privacy & Security and click Open Anyway, or run this in Terminal:
 
 ```
 xattr -dr com.apple.quarantine /Applications/Cards.app
 ```
 
-**Windows** — `Cards-*-win-x64.exe`. SmartScreen предупредит о неизвестном издателе: «Подробнее → Выполнить в любом случае».
+**Windows**: `Cards-*-win-x64.exe`. SmartScreen warns about an unknown publisher: click More info → Run anyway.
 
-После запуска приложение живёт в строке меню (macOS) или в трее (Windows): иконка-карточка, через неё пауза, слова и настройки.
+After launch, the app lives in the menu bar (macOS) or the system tray (Windows). Use its card icon for pause, words and settings.
 
-## Обновления
+## Updates
 
-Приложение обновляется само: проверяет новую версию при запуске и каждые 6 часов, скачивает её и перезапускается, когда карточка скрыта, а окно настроек закрыто. На macOS для этого приложение должно лежать в «Программах». Версии до 0.1.1 обновляются один раз вручную.
+The app updates itself: it checks for a new version at launch and every 6 hours, downloads it, and restarts once the card is hidden and the settings window is closed. On macOS the app must be in Applications for this to work. Versions before 0.1.1 need one manual update.
