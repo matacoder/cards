@@ -100,10 +100,12 @@ jobs:
           cat smoke/smoke-state.json
           node scripts/check_smoke.js smoke/smoke-state.json
       - name: Installer starts the app afterwards
+        timeout-minutes: 3
         run: |
           installer="$(cygpath -w "$PWD/$(ls out/*.exe)")"
-          powershell -Command "Start-Process -Wait -FilePath '$installer' -ArgumentList '--updated','/S','--force-run'"
-          for i in $(seq 1 30); do
+          # No -Wait: it also waits for child processes, and the started app never exits.
+          powershell -Command "Start-Process -FilePath '$installer' -ArgumentList '--updated','/S','--force-run'"
+          for i in $(seq 1 60); do
             tasklist | grep -qi vocapeek.exe && break
             sleep 1
           done
