@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const deck = require('../core/deck');
 const { Store } = require('./store');
+const { createUpdater } = require('./updater');
 
 const IS_MAC = process.platform === 'darwin';
 const CARD_W = 400;
@@ -15,6 +16,12 @@ let cardWin;
 let settingsWin;
 let timer = null;
 let cardVisible = false;
+let updater;
+
+// Test modes run with their own data folder so they never touch real progress or the running app.
+const SMOKE_DIR = process.env.CARDS_SMOKE;
+const UPDATE_TEST_DIR = process.env.CARDS_UPDATE_TEST;
+if (SMOKE_DIR || UPDATE_TEST_DIR) app.setPath('userData', SMOKE_DIR || UPDATE_TEST_DIR);
 const dicts = {};
 
 function loadDict(lang) {
@@ -162,6 +169,8 @@ function rebuildTrayMenu() {
       { type: 'separator' },
       { label: 'Слова и настройки…', click: openSettings },
       { type: 'separator' },
+      ...updateMenuItems(),
+      { type: 'separator' },
       { label: 'Выход', role: 'quit' },
     ]),
   );
@@ -180,27 +189,68 @@ function registerIpc() {
   });
 }
 
-// Smoke test (CARDS_SMOKE=<dir>): render one card in a hidden window, save a PNG, quit.
+// Smoke test (CARDS_SMOKE=<dir>): render one card, record what is on it, save a PNG, quit.
+// CARDS_SMOKE_HIDDEN keeps the window off screen for local runs.
 async function runSmoke(outDir) {
   store.updateSettings({ onboarded: true });
   await new Promise((r) => cardWin.webContents.once('did-finish-load', r));
   showCard();
-  cardWin.hide();
+  if (process.env.CARDS_SMOKE_HIDDEN) cardWin.hide();
   await new Promise((r) => setTimeout(r, 3800));
   const img = await cardWin.webContents.capturePage();
+  const dom = await cardWin.webContents.executeJavaScript(`({
+    word: document.getElementById('word').textContent,
+    translation: document.getElementById('translation').textContent,
+    className: document.getElementById('card').className,
+  })`);
+  const colors = new Set();
+  const bitmap = img.toBitmap();
+  for (let i = 0; i < bitmap.length; i += 4) colors.add(bitmap.readUInt32LE(i));
   fs.writeFileSync(path.join(outDir, 'smoke-card.png'), img.toPNG());
-  fs.writeFileSync(path.join(outDir, 'smoke-state.json'), JSON.stringify(getState().stats));
+  const report = { stats: getState().stats, dom, distinctColors: colors.size, version: app.getVersion() };
+  fs.writeFileSync(path.join(outDir, 'smoke-state.json'), JSON.stringify(report));
   app.exit(0);
+}
+
+// Update test (CARDS_UPDATE_TEST=<dir>): check, download and install right away, no relaunch.
+async function runUpdateTest(dir) {
+  const logFile = path.join(dir, 'update.log');
+  const test = createUpdater({ isBusy: () => false, onChange: () => {
+    if (test && test.state.status === 'ready') test.install();
+    if (test && test.state.status === 'error') app.exit(1);
+  }, logFile, relaunch: false });
+  test.init();
+  await test.check();
+  if (test.state.status === 'idle') app.exit(2);
+}
+
+function updateMenuItems() {
+  const { status, version } = updater.state;
+  const items = [{ label: `Cards ${app.getVersion()}`, enabled: false }];
+  if (status === 'ready') items.push({ label: `Обновить до ${version}`, click: () => updater.install() });
+  else if (status === 'downloading') items.push({ label: `Загружается ${version}…`, enabled: false });
+  else if (status === 'move-to-applications') items.push({ label: 'Для обновлений перенесите в Программы', enabled: false });
+  else items.push({ label: 'Проверить обновления', click: () => updater.check() });
+  return items;
+}
+
+function isBusy() {
+  return cardVisible || Boolean(settingsWin && !settingsWin.isDestroyed());
 }
 
 app.whenReady().then(() => {
   if (IS_MAC) app.dock.hide();
-  const smokeDir = process.env.CARDS_SMOKE;
-  if (smokeDir) app.setPath('userData', smokeDir);
+  if (UPDATE_TEST_DIR) return runUpdateTest(UPDATE_TEST_DIR);
   store = new Store(app.getPath('userData'));
   registerIpc();
   createCardWindow();
-  if (smokeDir) return runSmoke(smokeDir);
+  if (SMOKE_DIR) return runSmoke(SMOKE_DIR);
+  updater = createUpdater({
+    isBusy,
+    onChange: rebuildTrayMenu,
+    logFile: path.join(app.getPath('userData'), 'update.log'),
+  });
+  if (app.isPackaged) updater.start();
   tray = new Tray(trayIcon());
   tray.setToolTip('Cards');
   rebuildTrayMenu();

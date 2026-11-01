@@ -7,3 +7,4 @@ data/sources/ru/x/
 data/sources/ru/raw/freq.html
 build/*
 !build/icon.png
+data/sources/ru/raw/Freq2011.zip

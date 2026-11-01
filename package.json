@@ -1,7 +1,7 @@
 {
   "name": "cards",
   "productName": "Cards",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pop-up flashcards for learning words while you work",
   "main": "src/main/main.js",
   "private": true,
@@ -23,7 +23,8 @@
       "src/**/*",
       "data/dicts/*.json",
       "assets/**/*",
-      "package.json"
+      "package.json",
+      "NOTICE.md"
     ],
     "artifactName": "Cards-${version}-${os}-${arch}.${ext}",
     "mac": {
@@ -31,6 +32,13 @@
       "target": [
         {
           "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
           "arch": [
             "arm64",
             "x64"
@@ -59,6 +67,11 @@
     },
     "linux": {
       "target": "AppImage"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "matacoder",
+      "repo": "cards"
     }
   },
   "devDependencies": {
@@ -66,5 +79,8 @@
     "electron-builder": "^26.18.0"
   },
   "author": "matacoder",
-  "homepage": "https://cards.mtkv.ru"
+  "homepage": "https://cards.mtkv.ru",
+  "dependencies": {
+    "electron-updater": "^6.8.11"
+  }
 }

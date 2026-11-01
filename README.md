@@ -19,7 +19,7 @@ npm test         # deck logic tests
 
 Builds: `npm run dist:mac`, `npm run dist:win`, `npm run dist:linux`. Mac builds are ad-hoc signed (no Developer ID yet); Windows NSIS can't be built on Apple Silicon without Rosetta, so release builds run in CI.
 
-Smoke test of a built app: `CARDS_SMOKE=<dir> <app binary>` renders one card in a hidden window, writes `smoke-card.png` and `smoke-state.json` to `<dir>`, and exits.
+Smoke test of a built app: `CARDS_SMOKE=<dir> <app binary>` renders one card, writes `smoke-card.png` and `smoke-state.json` to `<dir>`, and exits; `scripts/check_smoke.js` asserts the result. Set `CARDS_SMOKE_HIDDEN=1` to keep the window off screen when running on your own machine.
 
 ## Release
 
@@ -32,6 +32,12 @@ Push a `v*` tag: `.github/workflows/release.yml` builds macOS (arm64, x64) and W
 - Levels by frequency rank: 850 (~50% of running text), 1500 (~75%), 3000 (~90%). Progress is stored per studied language, so switching levels never repeats learned words.
 - Position: macOS top-right under the menu bar; Windows/Linux bottom-right above the taskbar. Not shown over full-screen apps on macOS.
 - State: `cards-state.json` in the Electron userData folder (`~/Library/Application Support/cards` on macOS).
+
+## Auto-update
+
+Packaged apps check public GitHub releases at start and every 6 hours, download silently, and restart once the card is hidden and settings are closed. Windows uses electron-updater. macOS uses `src/main/updater.js` directly (sha512 check, bundle id, version, codesign verify, then swap and relaunch) because Squirrel.Mac needs a Developer ID; the app must be in a writable folder such as Applications. Log: `update.log` in userData.
+
+Tests against real releases: run the `update-e2e` workflow with `from` and `to` versions. It installs `from` on macOS and Windows runners and checks that it updates itself to `to`.
 
 ## Layout
 
@@ -46,5 +52,7 @@ scripts/make_icons.py  tray icon generator
 ```
 
 ## Dictionaries
+
+Attribution and licenses: [NOTICE.md](NOTICE.md).
 
 Languages: Spanish, English, Russian, each with translations into the other two. Frequency data comes from FrequencyWords (OpenSubtitles, CC-BY-SA 4.0) and, for Russian, the source listed in `data/sources/ru/SOURCE.md`. Lemmatization and translations were produced with an LLM and validated by script; spot-check before relying on them.

@@ -1,0 +1,71 @@
+name: update-e2e
+
+# Installs a released version and checks that it updates itself to the latest release.
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: Installed version, for example 0.1.1
+        required: true
+      to:
+        description: Expected version after the update, for example 0.1.2
+        required: true
+
+jobs:
+  mac:
+    runs-on: macos-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Install the old version
+        run: |
+          gh release download "v${{ inputs.from }}" -R "$GITHUB_REPOSITORY" -p "Cards-${{ inputs.from }}-mac-arm64.zip" -O old.zip
+          mkdir apps && ditto -x -k old.zip apps
+      - name: Update
+        run: |
+          mkdir data
+          CARDS_UPDATE_TEST="$PWD/data" apps/Cards.app/Contents/MacOS/Cards || true
+          for i in $(seq 1 60); do
+            v=$(plutil -extract CFBundleShortVersionString raw apps/Cards.app/Contents/Info.plist || true)
+            [ "$v" = "${{ inputs.to }}" ] && break
+            sleep 2
+          done
+          cat data/update.log
+          echo "installed: $v"
+          test "$v" = "${{ inputs.to }}"
+      - name: Updated app still runs
+        run: |
+          mkdir smoke
+          CARDS_SMOKE="$PWD/smoke" apps/Cards.app/Contents/MacOS/Cards
+          cat smoke/smoke-state.json
+
+  windows:
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Install the old version
+        run: |
+          gh release download "v${{ inputs.from }}" -R "$GITHUB_REPOSITORY" -p "Cards-${{ inputs.from }}-win-x64.exe" -O old.exe
+          powershell -Command "Start-Process -Wait -FilePath .\old.exe -ArgumentList '/S'"
+      - name: Update
+        run: |
+          app="$LOCALAPPDATA/Programs/Cards/Cards.exe"
+          mkdir data
+          CARDS_UPDATE_TEST="$(cygpath -w "$PWD/data")" "$app" || true
+          for i in $(seq 1 60); do
+            v=$(powershell -Command "(Get-Item \"$LOCALAPPDATA\Programs\Cards\Cards.exe\").VersionInfo.ProductVersion" | tr -d '\r' || true)
+            [ "$v" = "${{ inputs.to }}" ] && break
+            sleep 2
+          done
+          cat data/update.log
+          echo "installed: $v"
+          test "$v" = "${{ inputs.to }}"
+      - name: Updated app still runs
+        run: |
+          mkdir smoke
+          CARDS_SMOKE="$(cygpath -w "$PWD/smoke")" "$LOCALAPPDATA/Programs/Cards/Cards.exe"
+          cat smoke/smoke-state.json

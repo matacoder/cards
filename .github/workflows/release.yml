@@ -36,9 +36,9 @@ jobs:
         shell: bash
         run: |
           mkdir -p smoke
-          CARDS_SMOKE="$PWD/smoke" "${{ matrix.app }}" || true
+          CARDS_SMOKE="$PWD/smoke" "${{ matrix.app }}"
           cat smoke/smoke-state.json
-          test -s smoke/smoke-card.png
+          node scripts/check_smoke.js smoke/smoke-state.json
       - uses: actions/upload-artifact@v4
         with:
           name: smoke-${{ matrix.os }}
@@ -48,4 +48,7 @@ jobs:
           files: |
             dist/*.dmg
             dist/*.exe
+            dist/*.zip
+            dist/*.blockmap
+            dist/latest*.yml
           body_path: RELEASE_NOTES.md
