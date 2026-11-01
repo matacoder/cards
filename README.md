@@ -17,8 +17,9 @@ Any of these can be the language you study or the language of translation, in an
 | Spanish | 3000 words | Film and TV subtitles (OpenSubtitles) |
 | English | 3000 words | Film and TV subtitles (OpenSubtitles) |
 | Russian | 3000 words | Russian National Corpus, 1950–2007 |
+| Japanese | 3000 words, with kana readings | wordfreq (subtitles, web, news, Wikipedia) |
 
-That gives six study directions: es→en, es→ru, en→es, en→ru, ru→es, ru→en. Pronunciation uses your system's voices, so it depends on which voices are installed.
+That gives twelve study directions. Spanish verbs also rotate through their conjugated forms when translated into Russian or English. Pronunciation uses your system's voices, so it depends on which voices are installed.
 
 The app's own interface is in Russian only for now.
 

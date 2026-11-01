@@ -13,3 +13,11 @@
 ## Translations
 
 Lemmatization and translations were produced with an LLM and validated by script.
+
+## Japanese dictionary
+
+`data/dicts/ja.json` is derived from [wordfreq](https://github.com/rspeer/wordfreq) word lists by Robyn Speer, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), and uses [SudachiDict](https://github.com/WorksApplications/SudachiDict) (Apache 2.0). Derived data keeps the same license. Details: `data/sources/ja/SOURCE.md`.
+
+## Spanish verb forms
+
+Conjugations in `data/dicts/es.json` were generated with [verbecc](https://github.com/bretttolbert/verbecc), whose data comes from Verbiste (GPL); Russian forms with [pymorphy3](https://github.com/no-plagiarism/pymorphy3) and OpenCorpora data (CC BY-SA); English forms with [lemminflect](https://github.com/bjascob/LemmInflect).

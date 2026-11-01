@@ -1,7 +1,7 @@
 {
   "name": "vocapeek",
   "productName": "Vocapeek",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Pop-up flashcards for learning words while you work",
   "private": true,
   "scripts": {

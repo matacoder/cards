@@ -16,7 +16,7 @@ An app for learning words through pop-up cards while you work. Platforms: macOS,
 
 ## Dictionaries
 - Frequency-based, one entry per lemma. Levels by rank: 1–850 (target ~50% text coverage), 851–1500 (~75%), 1501–3000 (~90%).
-- Starting languages: Spanish, English, Russian, with translations in any direction (each dictionary has translations into the other two).
+- Languages: Spanish, English, Russian and Japanese ([japanese.md](japanese.md)), with translations in any direction (each dictionary has translations into the other three).
 - Sources: FrequencyWords (OpenSubtitles, CC BY-SA 4.0) for es/en; the Lyashevskaya–Sharov frequency dictionary (Russian National Corpus) for ru. Lemmas and translations were produced with an LLM; origin is described in `data/sources/*/SOURCE.md`.
 - Spanish nouns are shown with an article ("la casa") because gender matters.
 
@@ -41,8 +41,7 @@ An app for learning words through pop-up cards while you work. Platforms: macOS,
 - No mail, so no password recovery for now.
 
 ## Queue
-1. Add Japanese as a study and translation language: see [japanese.md](japanese.md).
-2. Sign-in and sync in the desktop app.
+1. Sign-in and sync in the desktop app.
 
 ## Later (not in the MVP)
 - Configurable card appearance and position.

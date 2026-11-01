@@ -75,3 +75,22 @@ test('merging devices: the newer settings win, and languages only one side has s
   assert.strictEqual(merged.settings.level, 3);
   assert.deepStrictEqual(Object.keys(merged.progress).sort(), ['en', 'es']);
 });
+
+test('a Japanese card shows the reading, and speech reads only the word', () => {
+  const words = [{ rank: 1, lemma: '家', word: '家（いえ）', say: '家', tr: { ru: 'дом' } }];
+  const p = deck.emptyProgress();
+  deck.refill(words, p, 1, 6);
+  const card = deck.nextCard(words, p, 'ru');
+  assert.strictEqual(card.word, '家（いえ）');
+  assert.strictEqual(card.say, '家');
+});
+
+test('a verb without translated forms for the language stays infinitive', () => {
+  const forms = [{ word: 'hablo', tr: { ru: 'я говорю' } }];
+  const verbs = [{ rank: 1, lemma: 'hablar', word: 'hablar', pos: 'verb', tr: { ru: 'говорить', ja: '話す（はなす）' }, forms }];
+  const p = deck.emptyProgress();
+  deck.refill(verbs, p, 1, 6);
+  const seen = [1, 2].map(() => deck.nextCard(verbs, p, 'ja'));
+  assert.deepStrictEqual(seen.map((c) => c.word), ['hablar', 'hablar']);
+  assert.strictEqual(seen[1].translation, '話す（はなす）');
+});

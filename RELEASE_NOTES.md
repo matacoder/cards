@@ -1,4 +1,4 @@
-Pop-up flashcards that teach you words while you work. Spanish, English and Russian in any direction, with frequency dictionaries of 850 / 1500 / 3000 words.
+Pop-up flashcards that teach you words while you work. Spanish, English, Russian and Japanese in any direction, with frequency dictionaries of 850 / 1500 / 3000 words.
 
 ## Install
 

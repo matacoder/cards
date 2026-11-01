@@ -1,8 +1,8 @@
 // Pure deck logic shared by desktop and web. No I/O here.
 
 const LEVELS = { 1: 850, 2: 1500, 3: 3000 };
-const LANGS = { es: 'Español', en: 'English', ru: 'Русский' };
-const SPEECH_LANGS = { es: 'es-ES', en: 'en-US', ru: 'ru-RU' };
+const LANGS = { es: 'Español', en: 'English', ru: 'Русский', ja: '日本語' };
+const SPEECH_LANGS = { es: 'es-ES', en: 'en-US', ru: 'ru-RU', ja: 'ja-JP' };
 
 function emptyProgress() {
   return { learned: {}, active: [], cursor: 0 };
@@ -36,13 +36,14 @@ function nextCard(dict, prog, nativeLang) {
   prog.cursor = (prog.cursor + 1) % prog.active.length;
   const entry = dict.find((e) => e.lemma === lemma);
   if (!entry) return null;
-  const shown = verbForm(entry, prog);
-  return { lemma, word: shown.word, translation: shown.tr[nativeLang] || entry.tr[nativeLang] || '', rank: entry.rank };
+  const shown = verbForm(entry, prog, nativeLang);
+  return { lemma, word: shown.word, say: shown.say || shown.word, translation: shown.tr[nativeLang] || entry.tr[nativeLang] || '', rank: entry.rank };
 }
 
 // A verb starts as the infinitive, then every show takes its next conjugated form.
-function verbForm(entry, prog) {
-  if (!entry.forms) return entry;
+// Without translated forms for this language it stays infinitive, so that the two sides match.
+function verbForm(entry, prog, nativeLang) {
+  if (!entry.forms || !entry.forms[0].tr[nativeLang]) return entry;
   if (!prog.shows) prog.shows = {};
   const shows = prog.shows[entry.lemma] || 0;
   prog.shows[entry.lemma] = shows + 1;

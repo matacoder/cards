@@ -14,7 +14,7 @@ let hovered = false;
 function speak() {
   if (!current || current.done) return;
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(current.word);
+  const u = new SpeechSynthesisUtterance(current.say);
   u.lang = current.speechLang;
   speechSynthesis.speak(u);
 }
@@ -79,6 +79,14 @@ function close(delay = 0) {
   }, delay);
 }
 
+// Long lines (Japanese with its reading, above all) shrink before they get cut off.
+function fitText(node, sizes) {
+  for (const size of sizes) {
+    node.style.fontSize = `${size}px`;
+    if (node.scrollWidth <= node.clientWidth) return;
+  }
+}
+
 function show(card) {
   current = card;
   hovered = false;
@@ -86,6 +94,8 @@ function show(card) {
   el('translation').textContent = card.translation;
   cardEl.className = 'card' + (card.done ? ' finished' : '');
   el('speak').hidden = !!card.done;
+  fitText(el('word'), [24, 20, 16]);
+  fitText(el('translation'), [18, 15, 13]);
   updateSpeak();
   requestAnimationFrame(() => cardEl.classList.add('visible'));
   if (card.wordSec > 0) runPhase('word', card.wordSec * 1000);
