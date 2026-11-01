@@ -1,0 +1,51 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            target: --mac
+            app: dist/mac-arm64/Cards.app/Contents/MacOS/Cards
+          - os: windows-latest
+            target: --win
+            app: dist/win-unpacked/Cards.exe
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Build
+        run: npx electron-builder ${{ matrix.target }} --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - name: Smoke test packaged app
+        shell: bash
+        run: |
+          mkdir -p smoke
+          CARDS_SMOKE="$PWD/smoke" "${{ matrix.app }}" || true
+          cat smoke/smoke-state.json
+          test -s smoke/smoke-card.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smoke-${{ matrix.os }}
+          path: smoke/smoke-*
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.dmg
+            dist/*.exe
+          body_path: RELEASE_NOTES.md

@@ -122,33 +122,9 @@ function notifySettings() {
   rebuildTrayMenu();
 }
 
-function entryView(dict, lemma, nativeLang) {
-  const e = dict.find((d) => d.lemma === lemma);
-  return e ? { lemma, word: e.word, translation: e.tr[nativeLang] || '', rank: e.rank } : null;
-}
-
 function getState() {
   const { s, dict, prog } = currentDeck();
-  const view = (lemma) => entryView(dict, lemma, s.nativeLang);
-  const learned = Object.entries(prog.learned)
-    .sort((a, b) => b[1] - a[1])
-    .map(([lemma]) => view(lemma))
-    .filter(Boolean);
-  const taken = new Set(prog.active);
-  const ahead = dict
-    .filter((e) => e.rank <= deck.levelMax(s.level) && !prog.learned[e.lemma] && !taken.has(e.lemma))
-    .slice(0, 30)
-    .map((e) => view(e.lemma));
-  return {
-    settings: s,
-    langs: deck.LANGS,
-    levels: deck.LEVELS,
-    dictSizes: Object.fromEntries(Object.keys(deck.LANGS).map((l) => [l, loadDict(l).length])),
-    stats: deck.stats(dict, prog, s.level),
-    active: prog.active.map(view).filter(Boolean),
-    learned,
-    ahead,
-  };
+  return deck.viewState(dict, prog, s);
 }
 
 function saveSettings(patch) {
@@ -204,11 +180,27 @@ function registerIpc() {
   });
 }
 
+// Smoke test (CARDS_SMOKE=<dir>): render one card in a hidden window, save a PNG, quit.
+async function runSmoke(outDir) {
+  store.updateSettings({ onboarded: true });
+  await new Promise((r) => cardWin.webContents.once('did-finish-load', r));
+  showCard();
+  cardWin.hide();
+  await new Promise((r) => setTimeout(r, 3800));
+  const img = await cardWin.webContents.capturePage();
+  fs.writeFileSync(path.join(outDir, 'smoke-card.png'), img.toPNG());
+  fs.writeFileSync(path.join(outDir, 'smoke-state.json'), JSON.stringify(getState().stats));
+  app.exit(0);
+}
+
 app.whenReady().then(() => {
   if (IS_MAC) app.dock.hide();
+  const smokeDir = process.env.CARDS_SMOKE;
+  if (smokeDir) app.setPath('userData', smokeDir);
   store = new Store(app.getPath('userData'));
   registerIpc();
   createCardWindow();
+  if (smokeDir) return runSmoke(smokeDir);
   tray = new Tray(trayIcon());
   tray.setToolTip('Cards');
   rebuildTrayMenu();

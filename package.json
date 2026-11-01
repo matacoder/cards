@@ -13,22 +13,49 @@
     "dist:linux": "electron-builder --linux"
   },
   "build": {
-    "appId": "app.cards.desktop",
+    "appId": "ru.mtkv.cards",
+    "productName": "Cards",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
     "files": [
       "src/**/*",
       "data/dicts/*.json",
       "assets/**/*",
       "package.json"
     ],
+    "artifactName": "Cards-${version}-${os}-${arch}.${ext}",
     "mac": {
       "category": "public.app-category.education",
-      "target": "dmg",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
       "extendInfo": {
         "LSUIElement": true
-      }
+      },
+      "identity": "-",
+      "hardenedRuntime": false
     },
     "win": {
-      "target": "nsis"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
     },
     "linux": {
       "target": "AppImage"
@@ -37,5 +64,7 @@
   "devDependencies": {
     "electron": "^45.2.1",
     "electron-builder": "^26.18.0"
-  }
+  },
+  "author": "matacoder",
+  "homepage": "https://cards.mtkv.ru"
 }

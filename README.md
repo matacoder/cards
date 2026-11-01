@@ -17,7 +17,13 @@ npm start        # tray app; first launch opens language setup
 npm test         # deck logic tests
 ```
 
-Builds: `npm run dist:mac`, `npm run dist:win`, `npm run dist:linux` (unsigned).
+Builds: `npm run dist:mac`, `npm run dist:win`, `npm run dist:linux`. Mac builds are ad-hoc signed (no Developer ID yet); Windows NSIS can't be built on Apple Silicon without Rosetta, so release builds run in CI.
+
+Smoke test of a built app: `CARDS_SMOKE=<dir> <app binary>` renders one card in a hidden window, writes `smoke-card.png` and `smoke-state.json` to `<dir>`, and exits.
+
+## Release
+
+Push a `v*` tag: `.github/workflows/release.yml` builds macOS (arm64, x64) and Windows (x64) on native runners, smoke-tests each packaged app, and attaches installers to a GitHub release with `RELEASE_NOTES.md` as the body.
 
 ## How it works
 

@@ -57,4 +57,34 @@ function stats(dict, prog, level) {
   return { total: inLevel.length, learned, active: prog.active.length, ahead: inLevel.length - learned - prog.active.length };
 }
 
-module.exports = { LEVELS, LANGS, SPEECH_LANGS, emptyProgress, levelMax, refill, nextCard, markLearned, unlearn, stats };
+function entryView(entry, nativeLang) {
+  return { lemma: entry.lemma, word: entry.word, translation: entry.tr[nativeLang] || '', rank: entry.rank };
+}
+
+// Everything the settings/words screen needs, in one serializable object.
+function viewState(dict, prog, settings) {
+  const byLemma = new Map(dict.map((e) => [e.lemma, e]));
+  const view = (lemma) => (byLemma.has(lemma) ? entryView(byLemma.get(lemma), settings.nativeLang) : null);
+  const learned = Object.entries(prog.learned)
+    .sort((a, b) => b[1] - a[1])
+    .map(([lemma]) => view(lemma))
+    .filter(Boolean);
+  const taken = new Set(prog.active);
+  const ahead = dict
+    .filter((e) => e.rank <= levelMax(settings.level) && !prog.learned[e.lemma] && !taken.has(e.lemma))
+    .slice(0, 30)
+    .map((e) => entryView(e, settings.nativeLang));
+  return {
+    settings,
+    langs: LANGS,
+    levels: LEVELS,
+    stats: stats(dict, prog, settings.level),
+    active: prog.active.map(view).filter(Boolean),
+    learned,
+    ahead,
+  };
+}
+
+const api = { LEVELS, LANGS, SPEECH_LANGS, emptyProgress, levelMax, refill, nextCard, markLearned, unlearn, stats, viewState };
+if (typeof module !== 'undefined') module.exports = api;
+else globalThis.deck = api;
