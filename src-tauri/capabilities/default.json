@@ -1,0 +1,6 @@
+{
+  "identifier": "default",
+  "description": "Card and settings windows",
+  "windows": ["card", "settings"],
+  "permissions": ["core:default"]
+}

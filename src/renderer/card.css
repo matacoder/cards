@@ -74,6 +74,16 @@ button {
   color: var(--accent);
 }
 .learned:hover { background: var(--accent-bg); }
+.version {
+  position: absolute;
+  bottom: 8px;
+  right: 0;
+  width: 72px;
+  text-align: center;
+  font-size: 10px;
+  color: var(--muted);
+}
+.card.done .version { color: #fff; }
 .card.done .learned { background: var(--accent); color: #fff; }
 .card.finished .learned { display: none; }
 .card.finished { grid-template-columns: 1fr; }

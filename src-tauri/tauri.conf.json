@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Vocapeek",
+  "mainBinaryName": "Vocapeek",
+  "version": "../package.json",
+  "identifier": "ru.mtkv.cards",
+  "build": {
+    "beforeBuildCommand": "node scripts/build_frontend.js",
+    "frontendDist": "../frontend-dist",
+    "beforeDevCommand": "node scripts/build_frontend.js"
+  },
+  "app": {
+    "macOSPrivateApi": true,
+    "withGlobalTauri": true,
+    "windows": [],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["app", "dmg", "nsis"],
+    "createUpdaterArtifacts": true,
+    "category": "Education",
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+    "resources": { "../NOTICE.md": "NOTICE.md" },
+    "macOS": { "signingIdentity": "-", "minimumSystemVersion": "11.0" },
+    "windows": {
+      "nsis": { "installMode": "currentUser", "installerHooks": "windows/hooks.nsh" }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDdENkY0RDMxRjMyMzlCQzAKUldUQW15UHpNVTF2ZmJwS1p6ZkNXWUpOWnlTdzZ0NERUMlVhaDhtcUs3L0J6VE5KSEt4WEVsamoK",
+      "endpoints": ["https://github.com/matacoder/vocapeek/releases/latest/download/latest.json"],
+      "windows": { "installMode": "passive" }
+    }
+  }
+}

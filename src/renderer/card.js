@@ -91,7 +91,7 @@ el('speak').addEventListener('click', speak);
 el('learned').addEventListener('click', () => {
   if (!current || phase === 'closing') return;
   cardEl.classList.add('revealed', 'done');
-  window.cards.learned(current.lemma);
+  window.cards.learned(current.lemma, current.learnLang);
   close(700);
 });
 cardEl.addEventListener('mouseenter', () => {
@@ -107,3 +107,6 @@ cardEl.addEventListener('mouseleave', () => {
 });
 
 window.cards.onShow(show);
+window.cards.appVersion().then((version) => {
+  el('version').textContent = `v${version}`;
+});

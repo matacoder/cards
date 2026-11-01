@@ -22,7 +22,7 @@ function renderLevels() {
 function renderHeader() {
   const s = state.settings;
   document.body.classList.toggle('onboarding', !s.onboarded);
-  el('title').textContent = s.onboarded ? 'Cards' : 'Что изучаем?';
+  el('title').textContent = s.onboarded ? 'Vocapeek' : 'Что изучаем?';
   el('subtitle').textContent = s.onboarded
     ? (s.paused ? 'На паузе — продолжить можно из меню в трее.' : 'Карточки появляются в углу экрана.')
     : 'Выберите язык, язык перевода и уровень. Начнём с самых частых слов.';

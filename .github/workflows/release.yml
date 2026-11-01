@@ -7,19 +7,70 @@ on:
 permissions:
   contents: write
 
+env:
+  TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+  TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+
 jobs:
-  build:
+  mac:
+    runs-on: macos-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         include:
-          - os: macos-latest
-            target: --mac
-            app: dist/mac-arm64/Cards.app/Contents/MacOS/Cards
-          - os: windows-latest
-            target: --win
-            app: dist/win-unpacked/Cards.exe
-    runs-on: ${{ matrix.os }}
+          - target: aarch64-apple-darwin
+            arch: arm64
+          - target: x86_64-apple-darwin
+            arch: x64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: rustup target add ${{ matrix.target }}
+      - run: npm ci
+      - run: npm test
+      - run: node scripts/build_frontend.js
+      - run: cargo test --manifest-path src-tauri/Cargo.toml
+      - run: npx tauri build --target ${{ matrix.target }} --bundles app,dmg
+      - name: Collect files
+        run: |
+          version=$(node -p "require('./package.json').version")
+          base="src-tauri/target/${{ matrix.target }}/release/bundle"
+          name="Vocapeek-$version-mac-${{ matrix.arch }}"
+          mkdir out
+          cp "$base"/dmg/*.dmg "out/$name.dmg"
+          cp "$base/macos/Vocapeek.app.tar.gz" "out/$name.app.tar.gz"
+          cp "$base/macos/Vocapeek.app.tar.gz.sig" "out/$name.app.tar.gz.sig"
+          ditto -c -k --keepParent "$base/macos/Vocapeek.app" "out/$name.zip"
+          codesign --verify --deep --strict "$base/macos/Vocapeek.app"
+      - name: Smoke test
+        if: matrix.arch == 'arm64'
+        run: |
+          mkdir smoke
+          CARDS_SMOKE="$PWD/smoke" "src-tauri/target/${{ matrix.target }}/release/bundle/macos/Vocapeek.app/Contents/MacOS/Vocapeek" &
+          pid=$!
+          sleep 6
+          screencapture -x smoke/screen.png || true
+          wait $pid
+          cat smoke/smoke-state.json
+          node scripts/check_smoke.js smoke/smoke-state.json
+      - uses: actions/upload-artifact@v4
+        if: matrix.arch == 'arm64'
+        with:
+          name: smoke-mac
+          path: smoke/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: files-mac-${{ matrix.arch }}
+          path: out/
+
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,27 +79,58 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
-      - name: Build
-        run: npx electron-builder ${{ matrix.target }} --publish never
-        env:
-          CSC_IDENTITY_AUTO_DISCOVERY: "false"
-      - name: Smoke test packaged app
-        shell: bash
+      - run: node scripts/build_frontend.js
+      - run: cargo test --manifest-path src-tauri/Cargo.toml
+      - run: npx tauri build --bundles nsis
+      - name: Collect files
         run: |
-          mkdir -p smoke
-          CARDS_SMOKE="$PWD/smoke" "${{ matrix.app }}"
+          version=$(node -p "require('./package.json').version")
+          base=src-tauri/target/release/bundle/nsis
+          mkdir out
+          cp "$base"/*-setup.exe "out/Vocapeek-$version-win-x64.exe"
+          cp "$base"/*-setup.exe.sig "out/Vocapeek-$version-win-x64.exe.sig"
+      - name: Smoke test
+        run: |
+          mkdir smoke
+          CARDS_SMOKE="$(cygpath -w "$PWD/smoke")" src-tauri/target/release/Vocapeek.exe &
+          pid=$!
+          sleep 6
+          powershell -File scripts/screenshot.ps1 "$(cygpath -w "$PWD/smoke/screen.png")" || true
+          wait $pid
           cat smoke/smoke-state.json
           node scripts/check_smoke.js smoke/smoke-state.json
+      - name: Installer starts the app afterwards
+        run: |
+          installer="$(cygpath -w "$PWD/$(ls out/*.exe)")"
+          powershell -Command "Start-Process -Wait -FilePath '$installer' -ArgumentList '--updated','/S','--force-run'"
+          for i in $(seq 1 30); do
+            tasklist | grep -qi vocapeek.exe && break
+            sleep 1
+          done
+          tasklist | grep -i vocapeek.exe
+          taskkill //F //IM Vocapeek.exe
       - uses: actions/upload-artifact@v4
         with:
-          name: smoke-${{ matrix.os }}
-          path: smoke/smoke-*
+          name: smoke-windows
+          path: smoke/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: files-windows
+          path: out/
+
+  publish:
+    needs: [mac, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: files-*
+          path: release
+          merge-multiple: true
+      - name: Write update manifests
+        run: node scripts/make_manifests.js release "${GITHUB_REF_NAME#v}"
       - uses: softprops/action-gh-release@v2
         with:
-          files: |
-            dist/*.dmg
-            dist/*.exe
-            dist/*.zip
-            dist/*.blockmap
-            dist/latest*.yml
+          files: release/*
           body_path: RELEASE_NOTES.md

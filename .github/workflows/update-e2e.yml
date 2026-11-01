@@ -1,15 +1,20 @@
 name: update-e2e
 
 # Installs a released version and checks that it updates itself to the latest release.
+# Progress is seeded where the installed version keeps it, then checked in the updated app's
+# real profile. Tauri versions must also start the new version on their own.
 on:
   workflow_dispatch:
     inputs:
       from:
-        description: Installed version, for example 0.1.1
+        description: Installed version, for example 0.1.4
         required: true
       to:
-        description: Expected version after the update, for example 0.1.2
+        description: Expected version after the update, for example 0.2.0
         required: true
+
+env:
+  SEED: '{"settings":{"onboarded":true,"learnLang":"es","nativeLang":"ru","level":1},"progress":{"es":{"learned":{"de":1},"active":[],"cursor":0}}}'
 
 jobs:
   mac:
@@ -17,15 +22,20 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
+      - uses: actions/checkout@v4
       - name: Install the old version
         run: |
           gh release download "v${{ inputs.from }}" -R "$GITHUB_REPOSITORY" -p "*-${{ inputs.from }}-mac-arm64.zip" -O old.zip
           mkdir apps && ditto -x -k old.zip apps
+          case "${{ inputs.from }}" in 0.1.*) seed_dir=Cards ;; *) seed_dir=ru.mtkv.cards ;; esac
+          mkdir -p "$HOME/Library/Application Support/$seed_dir"
+          echo "$SEED" > "$HOME/Library/Application Support/$seed_dir/cards-state.json"
       - name: Update
         run: |
           mkdir data
           old=$(ls -d apps/*.app)
-          CARDS_UPDATE_TEST="$PWD/data" "$old/Contents/MacOS/$(basename "$old" .app)" || true
+          binary=$(ls "$old"/Contents/MacOS/* | head -1)
+          CARDS_UPDATE_TEST="$PWD/data" "$binary" || true
           for i in $(seq 1 60); do
             v=""
             for a in apps/*.app; do
@@ -34,17 +44,28 @@ jobs:
             [ "$v" = "${{ inputs.to }}" ] && break
             sleep 2
           done
-          cat data/update.log
+          cat data/update.log || true
           echo "installed: $v"
           test "$v" = "${{ inputs.to }}"
-      - name: Updated app still runs
+      - name: New version started by itself
+        if: ${{ !startsWith(inputs.from, '0.1.') }}
         run: |
-          mkdir smoke
+          for i in $(seq 1 30); do
+            grep -qs "started ${{ inputs.to }}" data/update.log "$HOME/Library/Application Support/ru.mtkv.cards/update.log" && exit 0
+            sleep 2
+          done
+          exit 1
+      - name: Updated app works and kept the progress
+        run: |
+          pkill -x Vocapeek || true
+          sleep 1
           a=$(ls -d apps/*.app)
           echo "installed as $a"
           test -z "$(ls -d apps/*.old.* 2>/dev/null)"
-          CARDS_SMOKE="$PWD/smoke" "$a/Contents/MacOS/$(basename "$a" .app)"
+          mkdir smoke
+          CARDS_SMOKE="$PWD/smoke" CARDS_SMOKE_REAL_PROFILE=1 "$(ls "$a"/Contents/MacOS/* | head -1)"
           cat smoke/smoke-state.json
+          node scripts/check_smoke.js smoke/smoke-state.json 1
 
   windows:
     runs-on: windows-latest
@@ -54,29 +75,46 @@ jobs:
       run:
         shell: bash
     steps:
+      - uses: actions/checkout@v4
       - name: Install the old version
         run: |
           gh release download "v${{ inputs.from }}" -R "$GITHUB_REPOSITORY" -p "*-${{ inputs.from }}-win-x64.exe" -O old.exe
           powershell -Command "Start-Process -Wait -FilePath .\old.exe -ArgumentList '/S'"
+          case "${{ inputs.from }}" in 0.1.*) seed_dir=Cards ;; *) seed_dir=ru.mtkv.cards ;; esac
+          mkdir -p "$APPDATA/$seed_dir"
+          echo "$SEED" > "$APPDATA/$seed_dir/cards-state.json"
       - name: Update
         run: |
-          find_app() { ls "$LOCALAPPDATA"/Programs/{Cards,Vocapeek}/{Cards,Vocapeek}.exe 2>/dev/null | head -1; }
+          find_app() { for f in "$LOCALAPPDATA/Vocapeek/Vocapeek.exe" "$LOCALAPPDATA/Programs/Cards/Cards.exe"; do [ -e "$f" ] && { echo "$f"; return; }; done; }
           mkdir data
           CARDS_UPDATE_TEST="$(cygpath -w "$PWD/data")" "$(find_app)" || true
           for i in $(seq 1 60); do
             app=$(find_app)
             v=""
-            [ -n "$app" ] && v=$(powershell -Command "(Get-Item '$(cygpath -w "$app")').VersionInfo.ProductVersion" | tr -d '\r' | sed 's/\.0$//' || true)
+            [ -n "$app" ] && v=$(powershell -Command "(Get-Item '$(cygpath -w "$app")').VersionInfo.ProductVersion" | tr -d '\r' | sed -E 's/^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$/\1/' || true)
             [ "$v" = "${{ inputs.to }}" ] && break
             sleep 2
           done
-          cat data/update.log
+          cat data/update.log || true
           echo "installed: $v"
           test "$v" = "${{ inputs.to }}"
-      - name: Updated app still runs
+      - name: New version started by itself
+        if: ${{ !startsWith(inputs.from, '0.1.') }}
         run: |
+          for i in $(seq 1 30); do
+            grep -qs "started ${{ inputs.to }}" data/update.log "$APPDATA/ru.mtkv.cards/update.log" && exit 0
+            sleep 2
+          done
+          exit 1
+      - name: Updated app works, kept the progress, removed the old app
+        run: |
+          taskkill //F //IM Vocapeek.exe || true
           mkdir smoke
-          app=$(ls "$LOCALAPPDATA"/Programs/{Cards,Vocapeek}/{Cards,Vocapeek}.exe 2>/dev/null | head -1)
-          echo "installed as $app"
-          CARDS_SMOKE="$(cygpath -w "$PWD/smoke")" "$app"
+          CARDS_SMOKE="$(cygpath -w "$PWD/smoke")" CARDS_SMOKE_REAL_PROFILE=1 "$LOCALAPPDATA/Vocapeek/Vocapeek.exe"
           cat smoke/smoke-state.json
+          node scripts/check_smoke.js smoke/smoke-state.json 1
+          for i in $(seq 1 30); do
+            [ ! -e "$LOCALAPPDATA/Programs/Cards/Cards.exe" ] && break
+            sleep 2
+          done
+          test ! -e "$LOCALAPPDATA/Programs/Cards/Cards.exe"

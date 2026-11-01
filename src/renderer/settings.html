@@ -2,14 +2,14 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'">
-  <title>Cards</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' ipc: http://ipc.localhost; style-src 'self' 'unsafe-inline'">
+  <title>Vocapeek</title>
   <link rel="stylesheet" href="settings.css">
 </head>
 <body>
   <main>
     <header>
-      <h1 id="title">Cards</h1>
+      <h1 id="title">Vocapeek</h1>
       <p id="subtitle" class="muted"></p>
     </header>
 
@@ -47,6 +47,8 @@
       <ul class="words" id="words"></ul>
     </section>
   </main>
+  <script src="deck.js"></script>
+  <script src="desktop.js"></script>
   <script src="settings.js"></script>
 </body>
 </html>

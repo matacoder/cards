@@ -1,86 +1,17 @@
 {
-  "name": "cards",
-  "productName": "Cards",
-  "version": "0.1.4",
+  "name": "vocapeek",
+  "productName": "Vocapeek",
+  "version": "0.2.0",
   "description": "Pop-up flashcards for learning words while you work",
-  "main": "src/main/main.js",
   "private": true,
   "scripts": {
-    "start": "electron .",
+    "start": "tauri dev",
     "test": "node --test test/*.test.js",
-    "dist:mac": "electron-builder --mac",
-    "dist:win": "electron-builder --win",
-    "dist:linux": "electron-builder --linux"
-  },
-  "build": {
-    "appId": "ru.mtkv.cards",
-    "productName": "Cards",
-    "directories": {
-      "output": "dist",
-      "buildResources": "build"
-    },
-    "files": [
-      "src/**/*",
-      "data/dicts/*.json",
-      "assets/**/*",
-      "package.json",
-      "NOTICE.md"
-    ],
-    "artifactName": "Cards-${version}-${os}-${arch}.${ext}",
-    "mac": {
-      "category": "public.app-category.education",
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "arm64",
-            "x64"
-          ]
-        },
-        {
-          "target": "zip",
-          "arch": [
-            "arm64",
-            "x64"
-          ]
-        }
-      ],
-      "extendInfo": {
-        "LSUIElement": true
-      },
-      "identity": "-",
-      "hardenedRuntime": false
-    },
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ]
-    },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false
-    },
-    "linux": {
-      "target": "AppImage"
-    },
-    "publish": {
-      "provider": "github",
-      "owner": "matacoder",
-      "repo": "vocapeek"
-    }
-  },
-  "devDependencies": {
-    "electron": "^45.2.1",
-    "electron-builder": "^26.18.0"
+    "build": "tauri build"
   },
   "author": "matacoder",
   "homepage": "https://cards.mtkv.ru",
-  "dependencies": {
-    "electron-updater": "^6.8.11"
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.4"
   }
 }

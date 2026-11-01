@@ -8,3 +8,6 @@ data/sources/ru/raw/freq.html
 build/*
 !build/icon.png
 data/sources/ru/raw/Freq2011.zip
+frontend-dist/
+src-tauri/target/
+src-tauri/gen/

@@ -41,7 +41,7 @@ An app for learning words through pop-up cards while you work. Platforms: macOS,
 - Offline: desktop and web work without a network and sync when back online (last change wins, per word).
 
 ## Queue
-1. Choose the product name.
+1. Move the desktop app to Tauri and ship it as Vocapeek: see [tauri.md](tauri.md).
 2. Web version and Docker Compose for Dokploy.
 3. Add Japanese as a study and translation language.
 
