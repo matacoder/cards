@@ -6,7 +6,7 @@ Pop-up flashcards that teach you words while you work. A small card appears in t
 
 ## Download
 
-Get the latest build from [Releases](https://github.com/matacoder/cards/releases/latest): macOS (Apple Silicon, Intel) and Windows x64. Install steps are in the release notes. Builds aren't signed yet, so macOS and Windows warn on first launch. After that, the app updates itself.
+Get the latest build from [Releases](https://github.com/matacoder/vocapeek/releases/latest): macOS (Apple Silicon, Intel) and Windows x64. Install steps are in the release notes. Builds aren't signed yet, so macOS and Windows warn on first launch. After that, the app updates itself.
 
 ## Supported languages
 

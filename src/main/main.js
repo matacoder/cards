@@ -2,7 +2,7 @@ const { app, BrowserWindow, Tray, Menu, ipcMain, screen, nativeImage } = require
 const path = require('path');
 const fs = require('fs');
 const deck = require('../core/deck');
-const { Store } = require('./store');
+const { Store, migrateLegacyState } = require('./store');
 const { createUpdater } = require('./updater');
 const { cardPosition } = require('./position');
 
@@ -239,6 +239,7 @@ function isBusy() {
 app.whenReady().then(() => {
   if (IS_MAC) app.dock.hide();
   if (UPDATE_TEST_DIR) return runUpdateTest(UPDATE_TEST_DIR);
+  if (!SMOKE_DIR) migrateLegacyState(app.getPath('userData'), path.join(app.getPath('appData'), 'Cards'));
   store = new Store(app.getPath('userData'));
   registerIpc();
   createCardWindow();

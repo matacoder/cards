@@ -19,14 +19,18 @@ jobs:
     steps:
       - name: Install the old version
         run: |
-          gh release download "v${{ inputs.from }}" -R "$GITHUB_REPOSITORY" -p "Cards-${{ inputs.from }}-mac-arm64.zip" -O old.zip
+          gh release download "v${{ inputs.from }}" -R "$GITHUB_REPOSITORY" -p "*-${{ inputs.from }}-mac-arm64.zip" -O old.zip
           mkdir apps && ditto -x -k old.zip apps
       - name: Update
         run: |
           mkdir data
-          CARDS_UPDATE_TEST="$PWD/data" apps/Cards.app/Contents/MacOS/Cards || true
+          old=$(ls -d apps/*.app)
+          CARDS_UPDATE_TEST="$PWD/data" "$old/Contents/MacOS/$(basename "$old" .app)" || true
           for i in $(seq 1 60); do
-            v=$(plutil -extract CFBundleShortVersionString raw apps/Cards.app/Contents/Info.plist || true)
+            v=""
+            for a in apps/*.app; do
+              [ -f "$a/Contents/Info.plist" ] && v=$(plutil -extract CFBundleShortVersionString raw "$a/Contents/Info.plist" || true)
+            done
             [ "$v" = "${{ inputs.to }}" ] && break
             sleep 2
           done
@@ -36,7 +40,10 @@ jobs:
       - name: Updated app still runs
         run: |
           mkdir smoke
-          CARDS_SMOKE="$PWD/smoke" apps/Cards.app/Contents/MacOS/Cards
+          a=$(ls -d apps/*.app)
+          echo "installed as $a"
+          test -z "$(ls -d apps/*.old.* 2>/dev/null)"
+          CARDS_SMOKE="$PWD/smoke" "$a/Contents/MacOS/$(basename "$a" .app)"
           cat smoke/smoke-state.json
 
   windows:
@@ -49,15 +56,17 @@ jobs:
     steps:
       - name: Install the old version
         run: |
-          gh release download "v${{ inputs.from }}" -R "$GITHUB_REPOSITORY" -p "Cards-${{ inputs.from }}-win-x64.exe" -O old.exe
+          gh release download "v${{ inputs.from }}" -R "$GITHUB_REPOSITORY" -p "*-${{ inputs.from }}-win-x64.exe" -O old.exe
           powershell -Command "Start-Process -Wait -FilePath .\old.exe -ArgumentList '/S'"
       - name: Update
         run: |
-          app="$LOCALAPPDATA/Programs/Cards/Cards.exe"
+          find_app() { ls "$LOCALAPPDATA"/Programs/{Cards,Vocapeek}/{Cards,Vocapeek}.exe 2>/dev/null | head -1; }
           mkdir data
-          CARDS_UPDATE_TEST="$(cygpath -w "$PWD/data")" "$app" || true
+          CARDS_UPDATE_TEST="$(cygpath -w "$PWD/data")" "$(find_app)" || true
           for i in $(seq 1 60); do
-            v=$(powershell -Command "(Get-Item \"$LOCALAPPDATA\Programs\Cards\Cards.exe\").VersionInfo.ProductVersion" | tr -d '\r' | sed 's/\.0$//' || true)
+            app=$(find_app)
+            v=""
+            [ -n "$app" ] && v=$(powershell -Command "(Get-Item '$(cygpath -w "$app")').VersionInfo.ProductVersion" | tr -d '\r' | sed 's/\.0$//' || true)
             [ "$v" = "${{ inputs.to }}" ] && break
             sleep 2
           done
@@ -67,5 +76,7 @@ jobs:
       - name: Updated app still runs
         run: |
           mkdir smoke
-          CARDS_SMOKE="$(cygpath -w "$PWD/smoke")" "$LOCALAPPDATA/Programs/Cards/Cards.exe"
+          app=$(ls "$LOCALAPPDATA"/Programs/{Cards,Vocapeek}/{Cards,Vocapeek}.exe 2>/dev/null | head -1)
+          echo "installed as $app"
+          CARDS_SMOKE="$(cygpath -w "$PWD/smoke")" "$app"
           cat smoke/smoke-state.json

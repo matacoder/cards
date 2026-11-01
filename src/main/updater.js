@@ -11,25 +11,30 @@ const { promisify } = require('util');
 
 const run = promisify(execFile);
 const IS_MAC = process.platform === 'darwin';
-const RELEASES = 'https://github.com/matacoder/cards/releases/download';
+const RELEASES = 'https://github.com/matacoder/vocapeek/releases/download';
 const CHECK_EVERY_MS = 6 * 60 * 60 * 1000;
 const IDLE_POLL_MS = 60 * 1000;
 const BUNDLE_ID = 'ru.mtkv.cards';
+const APP_NAMES = ['Vocapeek.app', 'Cards.app'];
 
-// Args: pid, new app, target app, relaunch flag. Restores the old app if the copy fails.
+// Args: pid, new app, current app, final app path, relaunch flag.
+// The final path can differ from the current one when the product is renamed.
+// Restores the old app if the copy fails, and removes the whole download folder.
 const SWAP_SCRIPT = `
 while kill -0 "$1" 2>/dev/null; do sleep 0.2; done
 backup="$3.old.$$"
 mv "$3" "$backup" || exit 1
-if ditto "$2" "$3"; then
+if ditto "$2" "$4"; then
   rm -rf "$backup"
-  xattr -dr com.apple.quarantine "$3" 2>/dev/null
+  xattr -dr com.apple.quarantine "$4" 2>/dev/null
+  installed="$4"
 else
-  rm -rf "$3"
+  rm -rf "$4"
   mv "$backup" "$3"
+  installed="$3"
 fi
-rm -rf "$(dirname "$2")"
-[ "$4" = 1 ] && open "$3"
+rm -rf "$(dirname "$(dirname "$2")")"
+[ "$5" = 1 ] && open "$installed"
 `;
 
 function macBundlePath() {
@@ -78,7 +83,9 @@ async function prepareMacUpdate(info) {
   await downloadVerified(`${RELEASES}/v${info.version}/${file.url}`, zip, file.sha512);
   const unpacked = path.join(dir, 'unpacked');
   await run('/usr/bin/ditto', ['-x', '-k', zip, unpacked]);
-  const appPath = path.join(unpacked, 'Cards.app');
+  const name = APP_NAMES.find((n) => fs.existsSync(path.join(unpacked, n)));
+  if (!name) throw new Error('no app in the update');
+  const appPath = path.join(unpacked, name);
   await verifyMacApp(appPath, info.version);
   return appPath;
 }
@@ -126,7 +133,9 @@ function createUpdater({ isBusy, onChange, logFile, relaunch = true }) {
     if (state.status !== 'ready') return;
     log(`installing ${state.version}`);
     if (!IS_MAC) return autoUpdater.quitAndInstall(true, relaunch);
-    const args = ['-c', SWAP_SCRIPT, 'cards-update', String(process.pid), macApp, macBundlePath(), relaunch ? '1' : '0'];
+    const bundle = macBundlePath();
+    const target = path.join(path.dirname(bundle), path.basename(macApp));
+    const args = ['-c', SWAP_SCRIPT, 'cards-update', String(process.pid), macApp, bundle, target, relaunch ? '1' : '0'];
     spawn('/bin/sh', args, { detached: true, stdio: 'ignore' }).unref();
     app.quit();
   }

@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { emptyProgress } = require('../core/deck');
 
+const STATE_FILE = 'cards-state.json';
+
 const DEFAULT_SETTINGS = {
   onboarded: false,
   learnLang: 'es',
@@ -15,9 +17,21 @@ const DEFAULT_SETTINGS = {
   paused: false,
 };
 
+// The app was first released as "Cards", and its data folder follows the app name.
+// Copy the old state once so a rename never loses progress. The old file stays as a backup.
+function migrateLegacyState(dir, legacyDir) {
+  const target = path.join(dir, STATE_FILE);
+  const legacy = path.join(legacyDir, STATE_FILE);
+  if (path.resolve(target) === path.resolve(legacy)) return false;
+  if (fs.existsSync(target) || !fs.existsSync(legacy)) return false;
+  fs.mkdirSync(dir, { recursive: true });
+  fs.copyFileSync(legacy, target);
+  return true;
+}
+
 class Store {
   constructor(dir) {
-    this.file = path.join(dir, 'cards-state.json');
+    this.file = path.join(dir, STATE_FILE);
     this.state = { settings: { ...DEFAULT_SETTINGS }, progress: {} };
     this.load();
   }
@@ -55,4 +69,4 @@ class Store {
   }
 }
 
-module.exports = { Store, DEFAULT_SETTINGS };
+module.exports = { Store, DEFAULT_SETTINGS, migrateLegacyState };

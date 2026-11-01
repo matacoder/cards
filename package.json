@@ -1,7 +1,7 @@
 {
   "name": "cards",
   "productName": "Cards",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Pop-up flashcards for learning words while you work",
   "main": "src/main/main.js",
   "private": true,
@@ -71,7 +71,7 @@
     "publish": {
       "provider": "github",
       "owner": "matacoder",
-      "repo": "cards"
+      "repo": "vocapeek"
     }
   },
   "devDependencies": {
