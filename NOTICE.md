@@ -6,9 +6,9 @@
 
 ## Russian dictionary
 
-`data/dicts/ru.json` uses the frequency ranking from: О. Н. Ляшевская, С. А. Шаров, Частотный словарь современного русского языка (на материалах Национального корпуса русского языка). М.: Азбуковник, 2009. http://dict.ruslang.ru/freq.php
+`data/dicts/ru.json` uses the frequency ranking from the Frequency Dictionary of Modern Russian, based on the Russian National Corpus. Original citation: О. Н. Ляшевская, С. А. Шаров, Частотный словарь современного русского языка (на материалах Национального корпуса русского языка). М.: Азбуковник, 2009. http://dict.ruslang.ru/freq.php
 
-© О. Н. Ляшевская, С. А. Шаров, 2009–2011. © Национальный корпус русского языка, 2009–2011. The source states no open license. The original file is not redistributed here.
+© O. N. Lyashevskaya, S. A. Sharov, 2009–2011. © Russian National Corpus, 2009–2011. The source states no open license. The original file is not redistributed here.
 
 ## Translations
 

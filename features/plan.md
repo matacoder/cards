@@ -1,47 +1,47 @@
-# Cards — план
+# Cards: plan
 
-Приложение для изучения слов через всплывающие карточки «во время работы». Платформы: Mac, Windows, Linux (десктоп), затем веб, позже — виджеты iOS/Android.
+An app for learning words through pop-up cards while you work. Platforms: macOS, Windows and Linux desktop first, then web, later iOS/Android widgets.
 
-## Механика карточки
-- Карточка из трёх секций: сверху слово на изучаемом языке + кнопка «прослушать», снизу перевод, справа галочка «выучил».
-- Цикл: слово показывается N сек (по умолчанию 3), затем появляется перевод ещё на M сек (по умолчанию 3). Нажать галочку можно в любой момент, пока карточка на экране. Если навести курсор, карточка не исчезает, пока курсор над ней.
-- Между карточками пауза K сек (по умолчанию 60). Всё это настраивается.
-- Озвучка через системный синтез речи (Web Speech API). Своих аудиофайлов нет.
+## Card mechanics
+- Three sections: the word in the studied language with a listen button on top, the translation below, a "learned" tick on the right.
+- Cycle: the word shows for N seconds (default 3), then the translation appears for another M seconds (default 3). The tick works for as long as the card is on screen. Hovering keeps the card on screen.
+- K seconds between cards (default 60). All of this is configurable.
+- Speech uses system synthesis (Web Speech API). No audio files of our own.
 
-## Наборы слов
-- Активный набор: по умолчанию 6 слов (настраивается). Карточки идут по кругу внутри набора.
-- «Выучил» → слово уходит в «выученные», в набор добавляется следующее невыученное слово из словаря.
-- Три списка: выученные, изучаемые (активный набор), остальные (ещё не начатые). Выученное слово можно вернуть в изучение.
-- Прогресс хранится по изучаемому языку, а не по уровню, поэтому при переключении уровня выученные слова не повторяются.
+## Word sets
+- Active set: 6 words by default, configurable. Cards cycle through the set.
+- "Learned" moves a word to the learned list and the next unlearned word joins the set.
+- Three lists: learned, learning (active set), ahead (not started). A learned word can be returned to learning.
+- Progress is stored per studied language, not per level, so switching levels never repeats learned words.
 
-## Словари
-- Частотные, на лемму (словарную форму). Уровни по рангу: 1–850 (~50% покрытия текста), 851–1500 (~75%), 1501–3000 (~90%).
-- Языки старта: испанский, английский, русский, переводы в любом направлении (в каждом словаре есть переводы на два других языка).
-- Источники: FrequencyWords (OpenSubtitles, CC-BY-SA 4.0) для es/en; для ru — частотный словарь Ляшевской–Шарова (НКРЯ), если удастся скачать. Леммы и переводы собраны и проверены LLM; происхождение описано в `data/sources/*/SOURCE.md`.
-- Испанские существительные показываются с артиклем («la casa»): род важен.
+## Dictionaries
+- Frequency-based, one entry per lemma. Levels by rank: 1–850 (target ~50% text coverage), 851–1500 (~75%), 1501–3000 (~90%).
+- Starting languages: Spanish, English, Russian, with translations in any direction (each dictionary has translations into the other two).
+- Sources: FrequencyWords (OpenSubtitles, CC BY-SA 4.0) for es/en; the Lyashevskaya–Sharov frequency dictionary (Russian National Corpus) for ru. Lemmas and translations were produced with an LLM; origin is described in `data/sources/*/SOURCE.md`.
+- Spanish nouns are shown with an article ("la casa") because gender matters.
 
-## Десктоп (этап 1, MVP)
-- Electron: один код на Mac/Windows/Linux, UI карточки потом переиспользуем в вебе. Rust/Tauri отложены: в Electron нет лишних зависимостей для сборки.
-- Своё окно вместо системных уведомлений: у системных нет нужных кнопок и их нельзя обновлять на лету. Без рамки, прозрачное, поверх окон, фокус не забирает.
-- Позиция: macOS — справа сверху под строкой меню (там, где часы и уведомления); Windows/Linux — справа снизу над панелью задач. Выбор позиции — после MVP.
-- Поверх полноэкранных приложений карточка не показывается (на macOS это поведение по умолчанию для обычного окна поверх остальных; на Windows проверить в играх).
-- Иконка в трее/строке меню: показать сейчас, пауза, слова, настройки, выход.
-- Первый запуск спрашивает: что изучаю, на какой язык переводить, уровень.
-- Хранение локально в JSON в userData. У записей есть `updatedAt`, чтобы потом синхронизировать.
+## Desktop (stage 1, MVP)
+- Electron: one codebase for macOS, Windows and Linux, and the card UI carries over to the web. Rust/Tauri postponed: Electron needs no extra build toolchain.
+- A custom window instead of system notifications, which lack the needed buttons and can't update in place. Frameless, transparent, always on top, never takes focus.
+- Position: macOS top right under the menu bar (where the clock and notifications are). Windows/Linux bottom right, always offset by the taskbar height: an auto-hidden taskbar can't be detected, and it must not cover the card when it slides out. Choosing a position comes after the MVP.
+- The card doesn't show over full-screen apps (default behaviour on macOS for a regular always-on-top window; to be checked in games on Windows).
+- Menu bar/tray icon: show now, pause, words, settings, quit.
+- First launch asks what you study, the translation language and the level.
+- Local JSON storage in userData. Records carry `updatedAt` for later sync.
 
-## Автообновление
-- Источник: публичные GitHub-релизы этого репозитория, токен в приложении не нужен.
-- Windows: electron-updater. macOS: свой установщик, потому что штатный Squirrel требует Developer ID. Подлинность на Mac держится на TLS и sha512 из релиза, без подписи Apple.
-- Проверка при запуске и каждые 6 часов. Установка без вопросов, когда карточка скрыта и настройки закрыты.
+## Auto-update
+- Source: public GitHub releases of this repository, so the app holds no token.
+- Windows: electron-updater. macOS: our own installer, because Squirrel requires a Developer ID. Authenticity on macOS relies on TLS and the sha512 from the release, with no Apple signature.
+- Checks at launch and every 6 hours. Installs without asking once the card is hidden and settings are closed.
 
-## Веб (этап 2)
-- Домен: cards.mtkv.ru.
-- Та же механика в обычной вкладке: карточка в окне, без всплывания.
-- Авторизация + минимальный бэкенд для прогресса (PostgreSQL или MySQL на сервере — решить на этапе 2).
-- Офлайн: десктоп и веб учатся без сети, синхронизация при появлении интернета (последнее изменение побеждает, по словам).
+## Web (stage 2)
+- Domain: cards.mtkv.ru.
+- The same mechanics in a regular tab: the card sits in the page and doesn't pop up.
+- Node, Express and PostgreSQL, with email and password sign-in and cookie sessions. Deployed with Docker Compose on Dokploy.
+- Offline: desktop and web work without a network and sync when back online (last change wins, per word).
 
-## Позже (не в MVP)
-- Настраиваемый внешний вид и позиция карточки.
-- Виджеты iOS/Android.
-- Подпись Developer ID и Windows-сертификат: убрать предупреждения при первом запуске.
-- Другие языки.
+## Later (not in the MVP)
+- Configurable card appearance and position.
+- iOS/Android widgets.
+- Developer ID and a Windows certificate, to remove first-launch warnings.
+- More languages.
