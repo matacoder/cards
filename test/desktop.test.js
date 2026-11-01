@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 const deck = require('../src/core/deck');
+const { createSession } = require('../src/core/session');
 
 const source = fs.readFileSync(path.join(__dirname, '../src/renderer/desktop.js'), 'utf8');
 const DICT = [{ rank: 1, lemma: 'de', word: 'de', tr: { ru: 'из', en: 'of' } }, { rank: 2, lemma: 'la', word: 'la', tr: { ru: 'та', en: 'the' } }];
@@ -29,7 +30,7 @@ function desktop() {
     },
   };
   const fetch = async () => ({ json: async () => DICT });
-  vm.runInNewContext(source, { window, deck, fetch });
+  vm.runInNewContext(source, { window, deck, fetch, createSession });
   return { cards: window.cards, saved: () => JSON.parse(shell.json) };
 }
 

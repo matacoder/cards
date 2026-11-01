@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'">
+  <title>Vocapeek</title>
+  <link rel="icon" href="icon.png">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <main id="auth" class="auth" hidden>
+    <h1>Vocapeek</h1>
+    <p class="muted">Карточки со словами, которые всплывают, пока вы работаете. Самые частые слова испанского, английского и русского.</p>
+    <form id="authForm">
+      <label>Email <input type="email" id="email" autocomplete="username" required></label>
+      <label>Пароль <input type="password" id="password" autocomplete="current-password" minlength="8" required></label>
+      <p class="error" id="authError" role="alert"></p>
+      <button class="primary" id="authSubmit">Войти</button>
+    </form>
+    <button class="link" id="authSwitch">Нет аккаунта? Зарегистрироваться</button>
+    <p class="muted small">Паролей не восстанавливаем: запишите свой. Программа для Mac и Windows — на <a href="https://github.com/matacoder/vocapeek/releases/latest">GitHub</a>.</p>
+  </main>
+  <div id="app" class="app" hidden>
+    <header class="bar">
+      <b>Vocapeek</b>
+      <span class="muted small" id="sync"></span>
+      <span class="spacer"></span>
+      <span class="muted small" id="who"></span>
+      <button id="showNow">Показать карточку</button>
+      <button id="pause">Пауза</button>
+      <button id="logout">Выйти</button>
+    </header>
+    <iframe id="settingsFrame" class="settings-frame" title="Настройки"></iframe>
+    <iframe id="cardFrame" class="card-frame" title="Карточка" hidden></iframe>
+  </div>
+  <script src="deck.js"></script>
+  <script src="session.js"></script>
+  <script src="sync.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

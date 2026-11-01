@@ -5,6 +5,7 @@ const LEVEL_NAMES = { 1: '≈50% текста', 2: '≈75% текста', 3: '�
 let state = null;
 let tab = 'active';
 let level = 1;
+let shownSettings = null;
 
 function fillSelect(select, langs, value) {
   select.innerHTML = Object.entries(langs)
@@ -24,7 +25,7 @@ function renderHeader() {
   document.body.classList.toggle('onboarding', !s.onboarded);
   el('title').textContent = s.onboarded ? 'Vocapeek' : 'Что изучаем?';
   el('subtitle').textContent = s.onboarded
-    ? (s.paused ? 'На паузе — продолжить можно из меню в трее.' : 'Карточки появляются в углу экрана.')
+    ? (s.paused ? 'На паузе.' : 'Карточки появляются в углу экрана.')
     : 'Выберите язык, язык перевода и уровень. Начнём с самых частых слов.';
   el('save').textContent = s.onboarded ? 'Сохранить' : 'Начать';
 }
@@ -55,12 +56,20 @@ function renderWords() {
   items.forEach((w) => list.appendChild(wordRow(w, tab === 'learned' ? 'Вернуть' : '')));
 }
 
-function render() {
-  const s = state.settings;
+// Fields change only when the settings did: a word marked learned or a sync must not wipe
+// what is being typed.
+function renderFields(s) {
+  const json = JSON.stringify(s);
+  if (json === shownSettings) return;
+  shownSettings = json;
   level = s.level;
   fillSelect(el('learnLang'), state.langs, s.learnLang);
   fillSelect(el('nativeLang'), state.langs, s.nativeLang);
   NUM_FIELDS.forEach((f) => (el(f).value = s[f]));
+}
+
+function render() {
+  renderFields(state.settings);
   renderHeader();
   renderLevels();
   renderStats();

@@ -39,7 +39,8 @@ Plan and decisions: [features/plan.md](features/plan.md).
 ## Status
 
 - Desktop (Tauri, macOS and Windows): MVP. Linux builds aren't published yet.
-- Web (cards.mtkv.ru), sync backend, mobile widgets: planned.
+- Web (cards.mtkv.ru): email sign-in, offline work, sync between browsers. The desktop app doesn't sync yet.
+- Mobile widgets: planned.
 
 ## Run
 
@@ -76,11 +77,27 @@ Electron copies (0.1.x, named Cards) update through `latest.yml` and `latest-mac
 
 Push a `v*` tag: `.github/workflows/release.yml` builds macOS (arm64, x64) and Windows (x64) on native runners, smoke-tests them, and publishes one GitHub release with `RELEASE_NOTES.md` as the body.
 
+## Web
+
+The same card and settings pages run in frames inside a page with sign-in (`src/web`). State lives in `localStorage` and is merged with the server per word, the latest change winning, so the app works offline. A service worker keeps the last copy of the files. There's no password recovery: accounts have no mail behind them.
+
+Run locally: `POSTGRES_PASSWORD=<any> docker compose up --build` needs the external `dokploy-network` (`docker network create dokploy-network`), and a published port added through an override file.
+
+Deploy on Dokploy:
+
+1. Create a Compose application from this repository, with `docker-compose.yml`.
+2. Environment: `POSTGRES_PASSWORD=<long random value>`.
+3. Domains tab: `cards.mtkv.ru`, service `vocapeek-web`, port `3000`, HTTPS on. Then Redeploy.
+
+`server/entrypoint.sh` waits for the database and applies `server/migrations` on every start. Pushes to `main` deploy automatically once auto-deploy is on.
+
 ## Layout
 
 ```
 src/core/deck.js       pure deck logic (shared with the future web app)
 src/renderer/          card and settings UI; desktop.js connects them to the native shell
+src/web/                sign-in, sync and the card cycle in the browser
+server/                Express API, migrations, entrypoint
 src-tauri/             native shell: windows, tray, timer, state file, updates
 data/dicts/<lang>.json frequency dictionaries: {rank, lemma, word, pos, tr:{<lang>: ...}}
 data/sources/<lang>/   frequency sources + SOURCE.md (origin, license, method)

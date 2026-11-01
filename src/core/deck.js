@@ -1,4 +1,4 @@
-// Pure deck logic shared by desktop and (later) web. No I/O here.
+// Pure deck logic shared by desktop and web. No I/O here.
 
 const LEVELS = { 1: 850, 2: 1500, 3: 3000 };
 const LANGS = { es: 'Español', en: 'English', ru: 'Русский' };
@@ -51,13 +51,42 @@ function verbForm(entry, prog) {
 
 function markLearned(prog, lemma, now = Date.now()) {
   prog.learned[lemma] = now;
+  if (prog.unlearned) delete prog.unlearned[lemma];
   prog.active = prog.active.filter((l) => l !== lemma);
   return prog;
 }
 
-function unlearn(prog, lemma) {
+function unlearn(prog, lemma, now = Date.now()) {
   delete prog.learned[lemma];
+  prog.unlearned = { ...prog.unlearned, [lemma]: now };
   return prog;
+}
+
+// Per word, the latest change wins. `unlearned` remembers returned words, so that another
+// device's older "learned" doesn't bring them back.
+function mergeProgress(mine, theirs) {
+  const learned = {};
+  const unlearned = {};
+  const words = new Set([mine, theirs].flatMap((p) => [...Object.keys(p.learned), ...Object.keys(p.unlearned || {})]));
+  for (const word of words) {
+    const on = Math.max(mine.learned[word] || 0, theirs.learned[word] || 0);
+    const off = Math.max(mine.unlearned?.[word] || 0, theirs.unlearned?.[word] || 0);
+    if (on > off) learned[word] = on;
+    else unlearned[word] = off;
+  }
+  const shows = { ...theirs.shows };
+  for (const [word, count] of Object.entries(mine.shows || {})) shows[word] = Math.max(count, shows[word] || 0);
+  const active = (mine.active.length ? mine.active : theirs.active).filter((word) => !learned[word]);
+  return { learned, unlearned, active, cursor: mine.cursor, shows };
+}
+
+function mergeStates(mine, theirs) {
+  const settings = (theirs.settings?.updatedAt || 0) > (mine.settings?.updatedAt || 0) ? theirs.settings : mine.settings;
+  const progress = { ...theirs.progress };
+  for (const [lang, prog] of Object.entries(mine.progress || {})) {
+    progress[lang] = progress[lang] ? mergeProgress(prog, progress[lang]) : prog;
+  }
+  return { settings, progress };
 }
 
 function stats(dict, prog, level) {
@@ -95,6 +124,6 @@ function viewState(dict, prog, settings) {
   };
 }
 
-const api = { LEVELS, LANGS, SPEECH_LANGS, emptyProgress, levelMax, refill, nextCard, markLearned, unlearn, stats, viewState };
+const api = { LEVELS, LANGS, SPEECH_LANGS, emptyProgress, levelMax, refill, nextCard, markLearned, unlearn, mergeStates, stats, viewState };
 if (typeof module !== 'undefined') module.exports = api;
 else globalThis.deck = api;

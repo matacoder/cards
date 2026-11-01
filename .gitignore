@@ -11,3 +11,5 @@ data/sources/ru/raw/Freq2011.zip
 frontend-dist/
 src-tauri/target/
 src-tauri/gen/
+web-dist/
+server/node_modules/

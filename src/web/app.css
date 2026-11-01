@@ -1,0 +1,25 @@
+:root { --bg: #f4f4f6; --panel: #fff; --fg: #16161a; --muted: #6b6b75; --line: #e3e3e8; --accent: #1f9d55; --accent-fg: #fff; --danger: #c0362c; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1b1b1f; --panel: #26262c; --fg: #f4f4f6; --muted: #a3a3ad; --line: #3a3a42; --accent: #3ccf7a; --accent-fg: #0d1f14; --danger: #ff7b70; }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font-family: -apple-system, "Segoe UI", system-ui, sans-serif; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.auth { max-width: 380px; margin: 0 auto; padding: 48px 16px; display: flex; flex-direction: column; gap: 12px; }
+.auth h1 { margin: 0; font-size: 32px; }
+.auth p { margin: 0; line-height: 1.45; }
+form { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+input { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); }
+button { font: inherit; cursor: pointer; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; background: var(--panel); color: var(--fg); }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); padding: 10px; font-weight: 600; }
+button.link { border: 0; background: none; color: var(--accent); padding: 4px 0; align-self: flex-start; }
+.error { color: var(--danger); font-size: 14px; min-height: 1px; }
+a { color: var(--accent); }
+.app { height: 100%; display: flex; flex-direction: column; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.bar .spacer { flex: 1; }
+.settings-frame { flex: 1; width: 100%; min-height: 0; border: 0; }
+.card-frame { position: fixed; right: 8px; bottom: 8px; width: min(400px, calc(100vw - 16px)); height: 136px; border: 0; background: transparent; }

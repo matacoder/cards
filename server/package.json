@@ -1,0 +1,11 @@
+{
+  "name": "vocapeek-server",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "compression": "^1.8.0",
+    "express": "^5.1.0",
+    "pg": "^8.16.0"
+  }
+}

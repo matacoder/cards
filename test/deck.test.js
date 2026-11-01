@@ -57,3 +57,21 @@ test('a verb goes from the infinitive through its forms, and is learned as a who
   deck.markLearned(p, seen[1].lemma);
   assert.strictEqual(deck.nextCard(verbs, p, 'ru'), null);
 });
+
+test('merging devices: for each word the latest change wins', () => {
+  const phone = { learned: { a: 10, b: 10 }, active: ['c'], cursor: 0, shows: { c: 2 } };
+  const laptop = { learned: { d: 30 }, unlearned: { a: 20, b: 5 }, active: ['e'], cursor: 3, shows: { c: 5 } };
+  const merged = deck.mergeStates({ progress: { es: phone }, settings: {} }, { progress: { es: laptop }, settings: {} }).progress.es;
+  assert.deepStrictEqual(Object.keys(merged.learned).sort(), ['b', 'd']);
+  assert.deepStrictEqual(merged.unlearned, { a: 20 });
+  assert.deepStrictEqual(merged.active, ['c']);
+  assert.strictEqual(merged.shows.c, 5);
+});
+
+test('merging devices: the newer settings win, and languages only one side has stay', () => {
+  const mine = { settings: { level: 1, updatedAt: 1 }, progress: { es: deck.emptyProgress() } };
+  const theirs = { settings: { level: 3, updatedAt: 2 }, progress: { en: deck.emptyProgress() } };
+  const merged = deck.mergeStates(mine, theirs);
+  assert.strictEqual(merged.settings.level, 3);
+  assert.deepStrictEqual(Object.keys(merged.progress).sort(), ['en', 'es']);
+});

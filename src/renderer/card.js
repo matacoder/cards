@@ -117,5 +117,5 @@ cardEl.addEventListener('mouseleave', () => {
 
 window.cards.onShow(show);
 window.cards.appVersion().then((version) => {
-  el('version').textContent = `v${version}`;
+  el('version').textContent = version ? `v${version}` : '';
 });

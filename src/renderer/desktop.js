@@ -4,72 +4,27 @@ const { invoke } = window.__TAURI__.core;
 const { listen, emit } = window.__TAURI__.event;
 const IS_CARD = window.__TAURI__.window.getCurrentWindow().label === 'card';
 
-const DEFAULT_SETTINGS = {
-  onboarded: false, learnLang: 'es', nativeLang: 'ru', level: 1, setSize: 6,
-  wordSec: 3, translationSec: 3, intervalSec: 60, paused: false,
-};
-const dicts = {};
+const session = createSession({
+  read: () => invoke('state_read'),
+  write: (revision, json) => invoke('state_write', { revision, json }),
+  fetchDict: async (lang) => (await fetch(`dicts/${lang}.json`)).json(),
+});
+const { readState, update, openDeck } = session;
 let onShowCard = null;
 let cardVisible = false;
 let smoke = null;
-
-async function loadDict(lang) {
-  if (!dicts[lang]) dicts[lang] = await (await fetch(`dicts/${lang}.json`)).json();
-  return dicts[lang];
-}
-
-function parseState(json) {
-  const raw = JSON.parse(json || '{}');
-  return { settings: { ...DEFAULT_SETTINGS, ...raw.settings }, progress: raw.progress || {} };
-}
-
-async function readState() {
-  const [, json] = await invoke('state_read');
-  return parseState(json);
-}
-
-// Every change goes through here: if the other window wrote first, the change is redone on fresh data.
-async function update(change) {
-  for (;;) {
-    const [revision, json] = await invoke('state_read');
-    const state = parseState(json);
-    const result = await change(state);
-    if (await invoke('state_write', { revision, json: JSON.stringify(state) })) return result;
-  }
-}
-
-async function openDeck(state, lang = state.settings.learnLang) {
-  const s = state.settings;
-  const dict = await loadDict(lang);
-  if (!state.progress[lang]) state.progress[lang] = deck.emptyProgress();
-  const prog = state.progress[lang];
-  deck.refill(dict, prog, s.level, s.setSize);
-  return { s, dict, prog };
-}
-
-function cardPayload(s, card) {
-  if (!card) {
-    return { done: true, word: '🎉', translation: 'Уровень пройден — выберите следующий в настройках', wordSec: 0, translationSec: 6 };
-  }
-  return { ...card, learnLang: s.learnLang, speechLang: deck.SPEECH_LANGS[s.learnLang], wordSec: s.wordSec, translationSec: s.translationSec };
-}
 
 async function showNext(manual) {
   if (cardVisible) return;
   cardVisible = true;
   let payload = null;
-  let shownState = null;
   try {
-    payload = await update(async (state) => {
-      if (!state.settings.onboarded || (state.settings.paused && !manual)) return null;
-      const { s, dict, prog } = await openDeck(state);
-      shownState = state;
-      return cardPayload(s, deck.nextCard(dict, prog, s.nativeLang));
-    });
+    const drawn = await session.drawCard(manual);
+    payload = drawn.payload;
     if (!payload) return;
     await invoke('card_show');
     onShowCard(payload);
-    if (smoke) smoke.onCardShown(shownState);
+    if (smoke) smoke.onCardShown(drawn.state);
   } finally {
     if (!payload) cardVisible = false;
   }
@@ -84,10 +39,7 @@ async function onCardDone() {
 }
 
 async function togglePause() {
-  const settings = await update((state) => {
-    state.settings.paused = !state.settings.paused;
-    return state.settings;
-  });
+  const settings = await session.togglePause();
   await syncTray(settings);
   await invoke('schedule', { sec: settings.paused ? null : 2 });
   emit('state:changed');
@@ -140,36 +92,19 @@ window.cards = {
   appVersion: () => window.__TAURI__.app.getVersion(),
   onShow: (fn) => { onShowCard = fn; },
   done: onCardDone,
-  // `lang` is the language of the card on screen: settings may have changed since it was shown.
   learned: async (lemma, lang) => {
-    await update(async (state) => {
-      const { s, dict, prog } = await openDeck(state, lang);
-      deck.markLearned(prog, lemma);
-      deck.refill(dict, prog, s.level, s.setSize);
-    });
+    await session.learned(lemma, lang);
     emit('state:changed');
   },
-  getState: async () => {
-    const state = await readState();
-    const { s, dict, prog } = await openDeck(state);
-    return deck.viewState(dict, prog, s);
-  },
+  getState: session.getState,
   saveSettings: async (patch) => {
-    const firstRun = await update(async (state) => {
-      const first = !state.settings.onboarded;
-      state.settings = { ...state.settings, ...patch };
-      await openDeck(state);
-      return first;
-    });
+    const firstRun = await session.saveSettings(patch);
     await emit('settings:saved', { firstRun });
-    return window.cards.getState();
+    return session.getState();
   },
   unlearn: async (lemma) => {
-    await update(async (state) => {
-      const { prog } = await openDeck(state);
-      deck.unlearn(prog, lemma);
-    });
-    return window.cards.getState();
+    await session.unlearn(lemma);
+    return session.getState();
   },
   onStateChanged: (fn) => listen('state:changed', fn),
 };

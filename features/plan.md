@@ -1,4 +1,4 @@
-# Cards: plan
+# Vocapeek: plan
 
 An app for learning words through pop-up cards while you work. Platforms: macOS, Windows and Linux desktop first, then web, later iOS/Android widgets.
 
@@ -21,29 +21,28 @@ An app for learning words through pop-up cards while you work. Platforms: macOS,
 - Spanish nouns are shown with an article ("la casa") because gender matters.
 
 ## Desktop (stage 1, MVP)
-- Electron: one codebase for macOS, Windows and Linux, and the card UI carries over to the web. Rust/Tauri postponed: Electron needs no extra build toolchain.
+- Tauri, moved from Electron because of the app's size: see [tauri.md](tauri.md).
 - A custom window instead of system notifications, which lack the needed buttons and can't update in place. Frameless, transparent, always on top, never takes focus.
 - Position: macOS top right under the menu bar (where the clock and notifications are). Windows/Linux bottom right, always offset by the taskbar height: an auto-hidden taskbar can't be detected, and it must not cover the card when it slides out. Choosing a position comes after the MVP.
 - The card doesn't show over full-screen apps (default behaviour on macOS for a regular always-on-top window; to be checked in games on Windows).
 - Menu bar/tray icon: show now, pause, words, settings, quit.
 - First launch asks what you study, the translation language and the level.
-- Local JSON storage in userData. Records carry `updatedAt` for later sync.
+- Local JSON state file in the app data folder. Settings carry `updatedAt` for sync.
 
 ## Auto-update
-- Source: public GitHub releases of this repository, so the app holds no token.
-- Windows: electron-updater. macOS: our own installer, because Squirrel requires a Developer ID. Authenticity on macOS relies on TLS and the sha512 from the release, with no Apple signature.
-- Checks at launch and every 6 hours. Installs without asking once the card is hidden and settings are closed.
+- Source: public GitHub releases of this repository, so the app holds no token. Updates are signed with our own key.
+- Checks at launch and every 6 hours. Installs without asking once the card is hidden and settings are closed, then starts the new version.
 
 ## Web (stage 2)
 - Domain: cards.mtkv.ru.
 - The same mechanics in a regular tab: the card sits in the page and doesn't pop up.
 - Node, Express and PostgreSQL, with email and password sign-in and cookie sessions. Deployed with Docker Compose on Dokploy.
-- Offline: desktop and web work without a network and sync when back online (last change wins, per word).
+- Offline: the web app works without a network and syncs when back online (last change wins, per word). The desktop app doesn't sync yet.
+- No mail, so no password recovery for now.
 
 ## Queue
-1. Move the desktop app to Tauri and ship it as Vocapeek: see [tauri.md](tauri.md).
-2. Web version and Docker Compose for Dokploy.
-3. Add Japanese as a study and translation language.
+1. Add Japanese as a study and translation language: see [japanese.md](japanese.md).
+2. Sign-in and sync in the desktop app.
 
 ## Later (not in the MVP)
 - Configurable card appearance and position.
