@@ -32,10 +32,10 @@ jobs:
           echo "$SEED" > "$HOME/Library/Application Support/$seed_dir/cards-state.json"
       - name: Update
         run: |
-          mkdir data
+          mkdir update-data
           old=$(ls -d apps/*.app)
           binary=$(ls "$old"/Contents/MacOS/* | head -1)
-          CARDS_UPDATE_TEST="$PWD/data" "$binary" || true
+          CARDS_UPDATE_TEST="$PWD/update-data" "$binary" || true
           for i in $(seq 1 60); do
             v=""
             for a in apps/*.app; do
@@ -44,14 +44,14 @@ jobs:
             [ "$v" = "${{ inputs.to }}" ] && break
             sleep 2
           done
-          cat data/update.log || true
+          cat update-data/update.log || true
           echo "installed: $v"
           test "$v" = "${{ inputs.to }}"
       - name: New version started by itself
         if: ${{ !startsWith(inputs.from, '0.1.') }}
         run: |
           for i in $(seq 1 30); do
-            grep -qs "started ${{ inputs.to }}" data/update.log "$HOME/Library/Application Support/ru.mtkv.cards/update.log" && exit 0
+            grep -qs "started ${{ inputs.to }}" update-data/update.log "$HOME/Library/Application Support/ru.mtkv.cards/update.log" && exit 0
             sleep 2
           done
           exit 1
@@ -86,8 +86,8 @@ jobs:
       - name: Update
         run: |
           find_app() { for f in "$LOCALAPPDATA/Vocapeek/Vocapeek.exe" "$LOCALAPPDATA/Programs/Cards/Cards.exe"; do [ -e "$f" ] && { echo "$f"; return; }; done; }
-          mkdir data
-          CARDS_UPDATE_TEST="$(cygpath -w "$PWD/data")" "$(find_app)" || true
+          mkdir update-data
+          CARDS_UPDATE_TEST="$(cygpath -w "$PWD/update-data")" "$(find_app)" || true
           for i in $(seq 1 60); do
             app=$(find_app)
             v=""
@@ -95,14 +95,14 @@ jobs:
             [ "$v" = "${{ inputs.to }}" ] && break
             sleep 2
           done
-          cat data/update.log || true
+          cat update-data/update.log || true
           echo "installed: $v"
           test "$v" = "${{ inputs.to }}"
       - name: New version started by itself
         if: ${{ !startsWith(inputs.from, '0.1.') }}
         run: |
           for i in $(seq 1 30); do
-            grep -qs "started ${{ inputs.to }}" data/update.log "$APPDATA/ru.mtkv.cards/update.log" && exit 0
+            grep -qs "started ${{ inputs.to }}" update-data/update.log "$APPDATA/ru.mtkv.cards/update.log" && exit 0
             sleep 2
           done
           exit 1
