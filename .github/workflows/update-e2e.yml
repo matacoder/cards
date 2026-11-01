@@ -57,7 +57,7 @@ jobs:
           mkdir data
           CARDS_UPDATE_TEST="$(cygpath -w "$PWD/data")" "$app" || true
           for i in $(seq 1 60); do
-            v=$(powershell -Command "(Get-Item \"$LOCALAPPDATA\Programs\Cards\Cards.exe\").VersionInfo.ProductVersion" | tr -d '\r' || true)
+            v=$(powershell -Command "(Get-Item \"$LOCALAPPDATA\Programs\Cards\Cards.exe\").VersionInfo.ProductVersion" | tr -d '\r' | sed 's/\.0$//' || true)
             [ "$v" = "${{ inputs.to }}" ] && break
             sleep 2
           done

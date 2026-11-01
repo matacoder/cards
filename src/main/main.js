@@ -4,6 +4,7 @@ const fs = require('fs');
 const deck = require('../core/deck');
 const { Store } = require('./store');
 const { createUpdater } = require('./updater');
+const { cardPosition } = require('./position');
 
 const IS_MAC = process.platform === 'darwin';
 const CARD_W = 400;
@@ -42,19 +43,15 @@ function currentDeck() {
   return { s, dict, prog };
 }
 
-function cardPosition() {
-  const { workArea } = screen.getPrimaryDisplay();
-  const x = workArea.x + workArea.width - CARD_W - 4;
-  // macOS: under the menu bar clock; Windows/Linux: above the taskbar clock.
-  const y = IS_MAC ? workArea.y + 4 : workArea.y + workArea.height - CARD_H - 4;
-  return { x, y };
+function currentCardPosition() {
+  return cardPosition(screen.getPrimaryDisplay(), { width: CARD_W, height: CARD_H }, IS_MAC);
 }
 
 function createCardWindow() {
   cardWin = new BrowserWindow({
     width: CARD_W,
     height: CARD_H,
-    ...cardPosition(),
+    ...currentCardPosition(),
     frame: false,
     transparent: true,
     resizable: false,
@@ -87,7 +84,8 @@ function showCard() {
   const payload = card
     ? { ...card, speechLang: deck.SPEECH_LANGS[s.learnLang], wordSec: s.wordSec, translationSec: s.translationSec }
     : { done: true, word: '🎉', translation: 'Уровень пройден — выберите следующий в настройках', wordSec: 0, translationSec: 6 };
-  cardWin.setPosition(cardPosition().x, cardPosition().y);
+  const { x, y } = currentCardPosition();
+  cardWin.setPosition(x, y);
   cardWin.webContents.send('card:show', payload);
   cardWin.showInactive();
   cardVisible = true;

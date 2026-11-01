@@ -40,8 +40,13 @@ An app for learning words through pop-up cards while you work. Platforms: macOS,
 - Node, Express and PostgreSQL, with email and password sign-in and cookie sessions. Deployed with Docker Compose on Dokploy.
 - Offline: desktop and web work without a network and sync when back online (last change wins, per word).
 
+## Queue
+1. Choose the product name.
+2. Web version and Docker Compose for Dokploy.
+3. Add Japanese as a study and translation language.
+
 ## Later (not in the MVP)
 - Configurable card appearance and position.
 - iOS/Android widgets.
 - Developer ID and a Windows certificate, to remove first-launch warnings.
-- More languages.
+- More languages beyond Japanese.
